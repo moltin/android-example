@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_dark">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layMain">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:id="@+id/layHeader"
+                android:background="@color/gray_dark"
+                android:paddingTop="15dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/btnBack"
+                        android:onClick="onClickHandler"
+                        android:src="@drawable/ic_action_back_white"
+                        android:scaleType="fitXY"
+                        android:clickable="true"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    android:gravity="center_vertical|center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PAYMENT"
+                        android:id="@+id/txtActivityTitle"
+                        android:textColor="@android:color/white"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/btnCart"
+                        android:onClick="onClickHandler"
+                        android:src="@drawable/ic_cart"
+                        android:scaleType="fitXY"
+                        android:clickable="true"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/scrollView"
+                android:layout_weight="110">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="10"
+                        android:background="@color/gray_dark">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/layPayment"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/txtPaymentCardNumber"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
+                                android:background="@color/gray_medium"
+                                android:hint="Card number"
+                                android:textColorHint="@color/gray_light"
+                                android:textColor="@android:color/white"
+                                android:textSize="18dp"
+                                android:singleLine="true"
+                                android:inputType="number"
+                                android:maxLength="16"/>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" >
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:id="@+id/txtPaymentExpirationMonth"
+                                    android:layout_margin="10dp"
+                                    android:padding="10dp"
+                                    android:background="@color/gray_medium"
+                                    android:hint="Expiration month"
+                                    android:textColorHint="@color/gray_light"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="18dp"
+                                    android:singleLine="true"
+                                    android:clickable="true"
+                                    android:onClick="onClickHandler"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:id="@+id/txtPaymentExpirationYear"
+                                    android:layout_margin="10dp"
+                                    android:padding="10dp"
+                                    android:background="@color/gray_medium"
+                                    android:hint="Expiration year"
+                                    android:textColorHint="@color/gray_light"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="18dp"
+                                    android:singleLine="true"
+                                    android:clickable="true"
+                                    android:onClick="onClickHandler"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" >
+
+                                <EditText
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:id="@+id/txtPaymentCVC"
+                                    android:layout_margin="10dp"
+                                    android:padding="10dp"
+                                    android:background="@color/gray_medium"
+                                    android:hint="CVC/CVV"
+                                    android:textColorHint="@color/gray_light"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="18dp"
+                                    android:singleLine="true"
+                                    android:inputType="number"
+                                    android:maxLength="4"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="CHECKOUT"
+                android:id="@+id/btnPlaceOrder"
+                android:background="@drawable/btn_violet"
+                android:textColor="@android:color/white"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:onClick="onClickHandler"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/layLoading"
+            android:clickable="true"
+            android:background="@color/gray_dark"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

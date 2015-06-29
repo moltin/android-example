@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/gray_dark"
+    android:id="@+id/btnShipmentInactive"
+    android:clickable="true"
+    android:gravity="center">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Shipping title"
+            android:id="@+id/txtShippingTitle"
+            android:textColor="@android:color/white"
+            android:gravity="left|center_vertical"
+            android:layout_weight="4"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="(price)"
+            android:id="@+id/txtShippingPrice"
+            android:textColor="@android:color/white"
+            android:layout_weight="2"
+            android:gravity="center_vertical|right"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_medium"></LinearLayout>
+
+</LinearLayout>
