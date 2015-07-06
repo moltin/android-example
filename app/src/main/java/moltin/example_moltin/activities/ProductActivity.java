@@ -294,7 +294,7 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(), "No products available in this collection.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "No products available in this category.", Toast.LENGTH_LONG).show();
                         }
 
                         Fragment fragment = ProductFragment.newInstance(items, getListviewWidth());
