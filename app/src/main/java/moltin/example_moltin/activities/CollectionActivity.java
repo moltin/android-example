@@ -34,7 +34,7 @@ import moltin.example_moltin.fragments.CartFragment;
 import moltin.example_moltin.fragments.CollectionFragment;
 
 
-public class CollectionActivity extends SlidingFragmentActivity implements CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, CartFragment.OnFragmentInteractionListener, CollectionFragment.OnCollectionFragmentInteractionListener {
+public class CollectionActivity extends SlidingFragmentActivity implements CollectionFragment.OnCollectionFragmentPictureDownloadListener, CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, CartFragment.OnFragmentInteractionListener, CollectionFragment.OnCollectionFragmentInteractionListener {
     private Moltin moltin;
     private Context context;
     private ArrayList<CollectionItem> items;
@@ -291,7 +291,7 @@ public class CollectionActivity extends SlidingFragmentActivity implements CartF
         moltin.collection.listing((JSONObject) null,new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
-                ((LinearLayout)findViewById(R.id.layMainLoading)).setVisibility(View.GONE);
+                //((LinearLayout)findViewById(R.id.layMainLoading)).setVisibility(View.GONE);
                 if (msg.what == Constants.RESULT_OK) {
 
                     items=new ArrayList<CollectionItem>();
@@ -372,5 +372,16 @@ public class CollectionActivity extends SlidingFragmentActivity implements CartF
     @Override
     public void onFragmentUpdatedForCartItem() {
         ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onCollectionFragmentPictureDownloadListener() {
+        try {
+            ((LinearLayout) findViewById(R.id.layMainLoading)).setVisibility(View.GONE);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
