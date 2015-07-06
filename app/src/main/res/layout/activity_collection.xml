@@ -73,26 +73,35 @@ android:layout_height="match_parent">
 
             </LinearLayout>
 
-            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/container"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                tools:context="vee.android.sample.recyclerview.MainActivity"
-                tools:ignore="MergeRootFrame"
-                android:layout_weight="97"
-                android:background="@color/gray_dark" />
+                android:layout_weight="110">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="13"
-                android:gravity="top|center"
-                android:id="@+id/layIndex"
-                android:background="@color/gray_dark">
+                <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context="vee.android.sample.recyclerview.MainActivity"
+                    tools:ignore="MergeRootFrame"
+                    android:layout_weight="97"
+                    android:background="@color/gray_dark" />
 
-            </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="13"
+                    android:gravity="bottom|center"
+                    android:id="@+id/layIndex"
+                    android:background="@android:color/transparent"
+                    android:layout_marginBottom="70dp">
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout

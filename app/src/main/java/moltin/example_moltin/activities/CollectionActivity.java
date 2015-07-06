@@ -143,11 +143,12 @@ public class CollectionActivity extends SlidingFragmentActivity implements CartF
 
             final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
             ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
-                    (int)(10*scale + 0.5f),
-                    (int)(10*scale + 0.5f));
-            params.leftMargin = 5;
-            params.rightMargin = 5;
-            params.topMargin = 5;
+                    (int)(12*scale + 0.5f),
+                    (int)(12*scale + 0.5f));
+            params.leftMargin = (int)(5*scale + 0.5f);
+            params.rightMargin = (int)(5*scale + 0.5f);
+            params.topMargin = (int)(5*scale + 0.5f);
+            params.bottomMargin = (int)(40*scale + 0.5f);
 
             img.setLayoutParams(params);
             layIndex.addView(img);
