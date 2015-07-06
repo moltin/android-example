@@ -41,6 +41,8 @@ public class BillingActivity extends Activity {
     String country="";
     String postcode="";
 
+    String json;
+
     AlertDialog dialog;
     ArrayList<CountryItem> listCountry;
 
@@ -50,6 +52,8 @@ public class BillingActivity extends Activity {
         setContentView(R.layout.activity_billing);
 
         moltin = new Moltin(this);
+
+        json=getIntent().getExtras().getString("JSON");
 
         getCountryCodes();
 
@@ -175,6 +179,7 @@ public class BillingActivity extends Activity {
                             intent.putExtra("S_ADDRESS_2",address_2);
                             intent.putExtra("S_COUNTRY",country);
                             intent.putExtra("S_POSTCODE",postcode);
+                            intent.putExtra("JSON", json);
                             startActivity(intent);
                         }
                         else
@@ -187,6 +192,7 @@ public class BillingActivity extends Activity {
                             intent.putExtra("B_ADDRESS_2",address_2);
                             intent.putExtra("B_COUNTRY",country);
                             intent.putExtra("B_POSTCODE",postcode);
+                            intent.putExtra("JSON", json);
                             startActivity(intent);
                         }
                     }

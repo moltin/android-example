@@ -9,6 +9,7 @@ public class TotalCartItem {
     private String itemTotalPrice;
     private Integer itemTotalNumber;
     private ArrayList<CartItem> items;
+    private JSONObject itemJson;
 
 
     public TotalCartItem()
@@ -20,6 +21,8 @@ public class TotalCartItem {
     {
         try
         {
+            itemJson=json;
+
             if(json.has("total_items") && !json.isNull("total_items"))
                 itemTotalNumber=json.getInt("total_items");
 
@@ -61,5 +64,13 @@ public class TotalCartItem {
 
     public void setItems(ArrayList<CartItem> items) {
         this.items = items;
+    }
+
+    public JSONObject getItemJson() {
+        return itemJson;
+    }
+
+    public void setItemJson(JSONObject itemJson) {
+        this.itemJson = itemJson;
     }
 }

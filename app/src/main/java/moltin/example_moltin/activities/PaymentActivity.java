@@ -66,6 +66,9 @@ public class PaymentActivity extends Activity {
     int month=1;
     int year=2015;
 
+    private JSONObject jsonPayment;
+    private String json;
+
     private ArrayList<ShippingItem> shippingArray;
     private int lastShippingIndex=0;
 
@@ -78,6 +81,8 @@ public class PaymentActivity extends Activity {
         setContentView(R.layout.activity_payment);
 
         moltin = new Moltin(this);
+
+        json=getIntent().getExtras().getString("JSON_CART");
 
         shipping = getIntent().getExtras().getString("SHIPPING");
         email = getIntent().getExtras().getString("EMAIL");
@@ -398,14 +403,14 @@ public class PaymentActivity extends Activity {
                     if (msg.what == Constants.RESULT_OK) {
                         try {
 
-                            JSONObject json = (JSONObject) msg.obj;
-                            if(json.getBoolean("status"))
+                            jsonPayment = (JSONObject) msg.obj;
+                            if(jsonPayment.getBoolean("status"))
                             {
-                                showAlert(true,json.getJSONObject("result").getString("message"));
+                                showAlert(true,jsonPayment.getJSONObject("result").getString("message"));
                             }
                             else
                             {
-                                showAlert(false,json.getString("error"));
+                                showAlert(false,jsonPayment.getString("error"));
                             }
 
 
@@ -534,13 +539,16 @@ public class PaymentActivity extends Activity {
                 .setMessage(message)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if(done)
-                        {
+                        if (done) {
                             eraseCurrentCart();
 
-                            Intent intent = new Intent(getApplicationContext(), CollectionActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            Intent intent = new Intent(getApplicationContext(), ReceiptActivity.class);
+                            intent.putExtra("JSON_CART", json);
+                            intent.putExtra("JSON_PAYMENT", jsonPayment.toString());
                             startActivity(intent);
+                            /*Intent intent = new Intent(getApplicationContext(), CollectionActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);*/
                         }
                     }
                 })

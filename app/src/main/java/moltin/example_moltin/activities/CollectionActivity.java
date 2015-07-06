@@ -260,6 +260,7 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
                     if(menuFragment.cart!=null && menuFragment.cart.getItemTotalNumber()!=null && menuFragment.cart.getItemTotalNumber()>0)
                     {
                         Intent intent = new Intent(this, BillingActivity.class);
+                        intent.putExtra("JSON",menuFragment.cart.getItemJson().toString());
                         startActivity(intent);
                     }
                     else

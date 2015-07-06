@@ -48,6 +48,8 @@ public class ShippingActivity extends Activity {
     String b_country="";
     String b_postcode="";
 
+    String json;
+
     AlertDialog dialog;
     ArrayList<CountryItem> listCountry;
 
@@ -57,6 +59,8 @@ public class ShippingActivity extends Activity {
         setContentView(R.layout.activity_shipping);
 
         moltin = new Moltin(this);
+
+        json=getIntent().getExtras().getString("JSON");
 
         email = getIntent().getExtras().getString("EMAIL");
 
@@ -177,6 +181,7 @@ public class ShippingActivity extends Activity {
                         intent.putExtra("S_ADDRESS_2",address_2);
                         intent.putExtra("S_COUNTRY",country);
                         intent.putExtra("S_POSTCODE",postcode);
+                        intent.putExtra("JSON", json);
                         startActivity(intent);
                     }
                     break;

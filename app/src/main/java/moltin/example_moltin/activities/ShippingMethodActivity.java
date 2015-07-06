@@ -48,6 +48,8 @@ public class ShippingMethodActivity extends Activity {
 
     String shipping="";
 
+    String json;
+
     private ArrayList<ShippingItem> shippingArray;
     private int lastShippingIndex=0;
 
@@ -58,6 +60,8 @@ public class ShippingMethodActivity extends Activity {
 
         moltin = new Moltin(this);
         shippingArray = new ArrayList<ShippingItem>();
+
+        json=getIntent().getExtras().getString("JSON");
 
         email = getIntent().getExtras().getString("EMAIL");
 
@@ -105,6 +109,7 @@ public class ShippingMethodActivity extends Activity {
                     intent.putExtra("S_ADDRESS_2",s_address_2);
                     intent.putExtra("S_COUNTRY",s_country);
                     intent.putExtra("S_POSTCODE",s_postcode);
+                    intent.putExtra("JSON_CART", json);
                     startActivity(intent);
 
                     break;
