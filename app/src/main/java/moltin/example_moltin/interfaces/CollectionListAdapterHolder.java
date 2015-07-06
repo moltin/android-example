@@ -59,24 +59,20 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
             String imageUrl=items.get(i).getItemPictureUrl()[0];
             if(imageUrl!=null && imageUrl.length()>3)
             {
-                //shutterbugManager.download(imageUrl, ((ImageView)holder.image));
                 shutterbugManager.download(imageUrl, new ShutterbugManager.ShutterbugManagerListener() {
                     @Override
                     public void onImageSuccess(ShutterbugManager imageManager, Bitmap bitmap, String url) {
-                        //holder.image.setImageBitmap(bitmap);
                         checkIfPictureAreDownloaded();
                     }
 
                     @Override
                     public void onImageFailure(ShutterbugManager imageManager, String url) {
-                        //holder.image.setImageResource(android.R.color.transparent);
                         checkIfPictureAreDownloaded();
                     }
                 });
             }
             else
             {
-                //holder.image.setImageResource(android.R.color.transparent);
                 checkIfPictureAreDownloaded();
             }
         } catch (Exception e) {
@@ -91,9 +87,11 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
     public void onBindViewHolder(final ViewHolder holder , int position) {
         holder.title.setText(items.get(position).getItemName());
         holder.description.setText(items.get(position).getShortItemDescription());
-        holder.button.setTag(items.get(position).getItemId());
+        //holder.button.setTag(items.get(position).getItemId());
+        holder.button.setTag(R.id.txtCollection,items.get(position).getItemId());
+        holder.button.setTag(R.id.txtCollectionName,items.get(position).getItemName());
 
-        ((Button)holder.button).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+        ((Button) holder.button).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
         ((TextView)holder.description).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "heuristica/Heuristica-Italic.otf"));
         ((TextView)holder.title).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
 
@@ -105,28 +103,13 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
                 if(imageUrl!=null && imageUrl.length()>3)
                 {
                     shutterbugManager.download(imageUrl, ((ImageView)holder.image));
-                    /*shutterbugManager.download(imageUrl, new ShutterbugManager.ShutterbugManagerListener() {
-                        @Override
-                        public void onImageSuccess(ShutterbugManager imageManager, Bitmap bitmap, String url) {
-                            holder.image.setImageBitmap(bitmap);
-                            checkIfPictureAreDownloaded();
-                        }
-
-                        @Override
-                        public void onImageFailure(ShutterbugManager imageManager, String url) {
-                            holder.image.setImageResource(android.R.color.transparent);
-                            checkIfPictureAreDownloaded();
-                        }
-                    });*/
                 }
                 else
                 {
                     holder.image.setImageResource(android.R.color.transparent);
-                    //checkIfPictureAreDownloaded();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                //checkIfPictureAreDownloaded();
             }
         }
     }

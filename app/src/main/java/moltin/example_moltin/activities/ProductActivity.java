@@ -53,6 +53,7 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
     private LinearLayout layIndex;
 
     private String itemId="";
+    private String collection="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
         instance = this;
 
         itemId = getIntent().getExtras().getString("ID");
+        collection = getIntent().getExtras().getString("COLLECTION");
 
         moltin = new Moltin(this);
 
@@ -102,7 +104,7 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
 
         ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
         ((TextView)findViewById(R.id.txtActivityTitleCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-
+        ((TextView)findViewById(R.id.txtActivityTitle)).setText(collection);
         try {
             getProducts();
         } catch (Exception e) {
