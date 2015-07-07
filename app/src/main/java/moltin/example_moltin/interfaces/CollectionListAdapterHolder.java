@@ -36,13 +36,6 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
         this.width = width;
         this.countDownloadedPicture=0;
         this.shutterbugManager = ShutterbugManager.getSharedImageManager(activity.getApplicationContext());
-
-        /*this.SetOnPicturesDownloadListener(new OnPicturesDownloadListener() {
-            @Override
-            public void onPictureDownloadListener() {
-
-            }
-        });*/
     }
 
     @Override
@@ -88,7 +81,7 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
         holder.title.setText(items.get(position).getItemName());
         holder.description.setText(items.get(position).getShortItemDescription());
         //holder.button.setTag(items.get(position).getItemId());
-        holder.button.setTag(R.id.txtCollection,items.get(position).getItemId());
+        holder.button.setTag(R.id.txtDescription,items.get(position).getItemId());
         holder.button.setTag(R.id.txtCollectionName,items.get(position).getItemName());
 
         ((Button) holder.button).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));

@@ -15,9 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import moltin.example_moltin.R;
-import moltin.example_moltin.activities.ProductActivity;
 import moltin.example_moltin.data.ProductItem;
-import moltin.example_moltin.interfaces.CustomRecyclerView;
 import moltin.example_moltin.interfaces.ProductListAdapterHolder;
 
 /**
@@ -27,7 +25,7 @@ import moltin.example_moltin.interfaces.ProductListAdapterHolder;
  */
 public class ProductFragment extends android.app.Fragment {
     FragmentActivity activity;
-    CustomRecyclerView customRecyclerView;
+    RecyclerView recyclerView;
     ProductListAdapterHolder adapter;
     LinearLayoutManager layoutManager;
     private OnProductFragmentInteractionListener mListener;
@@ -36,15 +34,14 @@ public class ProductFragment extends android.app.Fragment {
     private int width;
     public View rootView;
 
-    public static ProductFragment newInstance(ArrayList<ProductItem> posts, int width) {
+    public static ProductFragment newInstance(ArrayList<ProductItem> posts) {
         ProductFragment fragment = new ProductFragment();
-        fragment.setArgs(posts, width);
+        fragment.setArgs(posts);
         return fragment;
     }
 
-    public void setArgs(ArrayList<ProductItem> posts, int width) {
+    public void setArgs(ArrayList<ProductItem> posts) {
         this.items = posts;
-        this.width = width;
     }
 
     public ProductFragment() {
@@ -68,27 +65,9 @@ public class ProductFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater , ViewGroup container , Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_product, container, false);
 
-        customRecyclerView = (CustomRecyclerView) rootView.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
-        adapter = new ProductListAdapterHolder(activity, items, width);
-
-        customRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                try {
-
-                    ProductActivity act = ProductActivity.instance;
-                    if (act != null)
-                        act.setPosition(layoutManager.findFirstVisibleItemPosition());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
+        adapter = new ProductListAdapterHolder(activity, items);
 
         return rootView;
     }
@@ -97,13 +76,13 @@ public class ProductFragment extends android.app.Fragment {
     public void onViewCreated(View view , Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
-        customRecyclerView.setWidth(width);
-        customRecyclerView.setAdapter(adapter);
-        customRecyclerView.setHasFixedSize(true);
-        customRecyclerView.setLayoutManager(layoutManager);
-        customRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        //recyclerView.setWidth(width);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         adapter.SetOnItemClickListener(new ProductListAdapterHolder.OnItemClickListener() {
 

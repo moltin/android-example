@@ -81,18 +81,8 @@ android:layout_height="match_parent">
                 tools:context="vee.android.sample.recyclerview.MainActivity"
                 tools:ignore="MergeRootFrame"
                 android:layout_weight="97"
-                android:background="@color/gray_dark" />
+                android:background="@android:color/white" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="13"
-                android:gravity="top|center"
-                android:id="@+id/layIndex"
-                android:background="@color/gray_dark">
-
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

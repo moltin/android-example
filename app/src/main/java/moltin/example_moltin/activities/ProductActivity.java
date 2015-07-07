@@ -11,8 +11,6 @@ import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,7 +80,7 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
         if (savedInstanceState != null)
             mContent = getFragmentManager().getFragment(savedInstanceState, "mContent");
         if (mContent == null) {
-            mContent = ProductFragment.newInstance(items,getListviewWidth());
+            mContent = ProductFragment.newInstance(items);
         }
 
         setContentView(R.layout.activity_product);
@@ -104,52 +102,11 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
 
         ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
         ((TextView)findViewById(R.id.txtActivityTitleCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        ((TextView)findViewById(R.id.txtActivityTitle)).setText(collection);
+        ((TextView)findViewById(R.id.txtActivityTitle)).setText(collection.toUpperCase());
         try {
             getProducts();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void setInitialPosition()
-    {
-        layIndex = (LinearLayout)findViewById(R.id.layIndex);
-
-        if(((LinearLayout) layIndex).getChildCount() > 0)
-            ((LinearLayout) layIndex).removeAllViews();
-
-        for(int i=0;i<items.size();i++)
-        {
-            ImageView img=new ImageView(this);
-            if(position==i)
-                img.setImageDrawable(getResources().getDrawable(R.drawable.circle_active));
-            else
-                img.setImageDrawable(getResources().getDrawable(R.drawable.circle_inactive));
-
-            final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
-            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
-                    (int)(10*scale + 0.5f),
-                    (int)(10*scale + 0.5f));
-            params.leftMargin = 5;
-            params.rightMargin = 5;
-            params.topMargin = 5;
-
-            img.setLayoutParams(params);
-            layIndex.addView(img);
-        }
-    }
-
-    public void setPosition(int newPosition)
-    {
-        if(newPosition!=position)
-        {
-            if(((LinearLayout) layIndex).getChildCount() > 0)
-            {
-                ((ImageView)layIndex.getChildAt(position)).setImageDrawable(getResources().getDrawable(R.drawable.circle_inactive));
-                ((ImageView)layIndex.getChildAt(newPosition)).setImageDrawable(getResources().getDrawable(R.drawable.circle_active));
-                position=newPosition;
-            }
         }
     }
 
@@ -159,28 +116,6 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
         display.getSize(screenSize);
 
         return screenSize.x;
-    }
-
-    public void onItemClickHandler(View view) {
-
-        try
-        {
-            ProductItem item= items.get(position);
-            Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra("ID",item.getItemId());
-            intent.putExtra("TITLE",item.getItemName());
-            intent.putExtra("DESCRIPTION",item.getItemDescription());
-            intent.putExtra("PICTURE",item.getItemPictureUrls());
-            intent.putExtra("BRAND",item.getItemBrand());
-            intent.putExtra("PRICE",item.getItemPrice());
-            intent.putExtra("MODIFIER",item.getItemModifier());
-            intent.putExtra("COLLECTION",item.getItemCollection());
-            startActivity(intent);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 
     public void onClickHandler(View view) {
@@ -300,15 +235,13 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
                             Toast.makeText(getApplicationContext(), "No products available in this category.", Toast.LENGTH_LONG).show();
                         }
 
-                        Fragment fragment = ProductFragment.newInstance(items, getListviewWidth());
+                        Fragment fragment = ProductFragment.newInstance(items);
                         mContent = fragment;
                         getFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.container, mContent)
                                 .commit();
                         menu.showContent();
-
-                        setInitialPosition();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -323,7 +256,23 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
 
     @Override
     public void onFragmentInteractionForProductItem(ProductItem item) {
-
+        try
+        {
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra("ID",item.getItemId());
+            intent.putExtra("TITLE",item.getItemName());
+            intent.putExtra("DESCRIPTION",item.getItemDescription());
+            intent.putExtra("PICTURE",item.getItemPictureUrls());
+            intent.putExtra("BRAND",item.getItemBrand());
+            intent.putExtra("PRICE",item.getItemPrice());
+            intent.putExtra("MODIFIER",item.getItemModifier());
+            intent.putExtra("COLLECTION",item.getItemCollection());
+            startActivity(intent);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override

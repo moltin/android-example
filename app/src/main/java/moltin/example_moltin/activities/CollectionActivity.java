@@ -181,7 +181,7 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
         try
         {
             Intent intent = new Intent(this, ProductActivity.class);
-            intent.putExtra("ID",view.getTag(R.id.txtCollection).toString());
+            intent.putExtra("ID",view.getTag(R.id.txtDescription).toString());
             intent.putExtra("COLLECTION",view.getTag(R.id.txtCollectionName).toString());
             startActivity(intent);
         }

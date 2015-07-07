@@ -2,185 +2,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="180dp"
+    android:orientation="horizontal"
+    android:paddingBottom="30dp">
 
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="3">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp">
+            android:background="@drawable/background_violet_upper">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar2"
+                android:layout_centerInParent="true" />
+
+            <com.applidium.shutterbug.FetchableImageView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/background_violet_upper"
-                android:layout_weight="10">
+                android:layout_height="match_parent"
+                android:id="@+id/imgItem"
+                android:scaleType="centerCrop" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        </RelativeLayout>
+    </LinearLayout>
 
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/progressBar2"
-                        android:layout_centerInParent="true" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4">
 
-                    <com.applidium.shutterbug.FetchableImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/imgItem"
-                        android:scaleType="centerCrop" />
-
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:id="@+id/layImages"
-                android:background="@android:color/white">
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/scrlImages" >
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:id="@+id/layScrollImages"></LinearLayout>
-                </HorizontalScrollView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/background_white_lower"
-                android:layout_weight="10">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Medium Text"
-                    android:id="@+id/txtCollection"
-                    android:textColor="@color/gray_medium"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="top|center_horizontal"
-                    android:textSize="16dp"
-                    android:layout_marginTop="5dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:id="@+id/txtTitle"
-                    android:textColor="@android:color/black"
-                    android:gravity="center"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:singleLine="true" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Medium Text"
-                    android:id="@+id/txtDescription"
-                    android:textColor="@color/gray_dark"
-                    android:layout_weight="12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="top|center_horizontal"
-                    android:textSize="20dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="More info"
-                    android:id="@+id/btnInItem"
-                    android:onClick="onItemClickHandler"
-                    android:background="@drawable/btn_simple"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
-                    android:capitalize="none"
-                    android:layout_marginBottom="15dp"
-                    android:textAllCaps="false" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="10dp">
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Large Text"
+            android:id="@+id/txtTitle"
+            android:textColor="@android:color/black"
+            android:gravity="top|left"
+            android:layout_weight="2"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:singleLine="false" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:id="@+id/txtPrice"
+            android:textColor="@color/violet_medium"
+            android:layout_weight="12"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="top|left"
+            android:textSize="20dp" />
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:id="@+id/imageView"
-                    android:src="@drawable/corner_u_l"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/corner_u_r"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="false"
-                    android:layout_alignParentRight="true" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/corner_l_l"
-                    android:layout_alignParentTop="false"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentBottom="true" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/corner_l_r"
-                    android:layout_alignParentTop="false"
-                    android:layout_alignParentLeft="false"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true" />
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
