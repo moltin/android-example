@@ -54,7 +54,7 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
         params.width = width;
         sView.setLayoutParams(params);
 
-        for(int i=0;i<items.size();i++)
+        for(int i=0;i<items.size() && i<10;i++)
         try {
             String imageUrl=items.get(i).getItemPictureUrl()[0];
             if(imageUrl!=null && imageUrl.length()>3)
