@@ -58,7 +58,7 @@
                 android:layout_height="35dp"
                 android:id="@+id/btnCart"
                 android:onClick="onClickHandler"
-                android:src="@drawable/ic_cart"
+                android:src="@drawable/ic_cart_white"
                 android:scaleType="fitXY"
                 android:clickable="true"
                 android:visibility="gone" />

@@ -1,11 +1,13 @@
 package moltin.example_moltin.activities;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applidium.shutterbug.utils.ShutterbugManager;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +34,23 @@ import java.util.Iterator;
 import moltin.android_sdk.Moltin;
 import moltin.android_sdk.utilities.Constants;
 import moltin.example_moltin.R;
+import moltin.example_moltin.data.CartItem;
 import moltin.example_moltin.data.ModifierItem;
+import moltin.example_moltin.data.TotalCartItem;
 import moltin.example_moltin.data.VariationItem;
+import moltin.example_moltin.fragments.CartFragment;
+import moltin.example_moltin.fragments.DetailFragment;
 
-public class DetailActivity extends Activity implements NumberPicker.OnValueChangeListener {
+public class DetailActivity extends SlidingFragmentActivity implements CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, CartFragment.OnFragmentInteractionListener, NumberPicker.OnValueChangeListener {
+
+    private SlidingMenu menu;
+    private android.app.Fragment mContent;
+    private CartFragment menuFragment;
+
+    private ArrayList<CartItem> itemsForCart;
+    private TotalCartItem cart;
+
+    private Point screenSize;
 
     private String itemId;
     private String itemTitle;
@@ -58,7 +75,42 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_detail);
+
+        moltin = new Moltin(this);
+
+        menu = getSlidingMenu();
+        menu.setShadowWidth(20);
+        menu.setBehindWidth(getScreenWidth()-50);
+        menu.setTouchModeBehind(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        menu.setMode(SlidingMenu.RIGHT);
+        menu.setFadeEnabled(false);
+        menu.setBehindScrollScale(0.5f);
+        setSlidingActionBarEnabled(true);
+
+
+        if (savedInstanceState != null)
+            mContent = getFragmentManager().getFragment(savedInstanceState, "mContent");
+        if (mContent == null) {
+            mContent = DetailFragment.newInstance();
+        }
+
         setContentView(R.layout.activity_detail);
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, mContent)
+                .commit();
+
+        itemsForCart=new ArrayList<CartItem>();
+        cart=new TotalCartItem(new JSONObject());
+        cart.setItems(itemsForCart);
+
+        setBehindContentView(R.layout.cart_content_frame);
+        menuFragment = CartFragment.newInstance(cart, getApplicationContext());
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.cart_content_frame, menuFragment)
+                .commit();
 
         itemId = getIntent().getExtras().getString("ID");
         itemTitle = getIntent().getExtras().getString("TITLE");
@@ -81,8 +133,7 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
             if(urls!=null && urls.length>0 && urls[0].length()>3)
             {
                 ShutterbugManager.getSharedImageManager(getApplicationContext()).download(urls[0].replace("|",""), ((ImageView)findViewById(R.id.imgDetailPhoto)));
-            }
-            else
+            } else
                 ((ImageView)findViewById(R.id.imgDetailPhoto)).setImageResource(android.R.color.transparent);
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,11 +245,10 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
             e.printStackTrace();
         }
 
-        LinearLayout layoutImages=(LinearLayout)findViewById(R.id.layImages);
-        LinearLayout layoutScrollImages=(LinearLayout)findViewById(R.id.layScrollImages);
+        try {
+            LinearLayout layoutImages=(LinearLayout)findViewById(R.id.layImages);
+            LinearLayout layoutScrollImages=(LinearLayout)findViewById(R.id.layScrollImages);
 
-        try
-        {
             if(urls.length>1)
             {
                 layoutImages.setVisibility(View.VISIBLE);
@@ -225,7 +275,7 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
                     img.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ((ImageView) findViewById(R.id.imgDetailPhoto)).setImageDrawable(((ImageView) view).getDrawable());
+                            ((ImageView)findViewById(R.id.imgDetailPhoto)).setImageDrawable(((ImageView) view).getDrawable());
                         }
                     });
 
@@ -249,7 +299,7 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
                         JSONObject jsonObject=(JSONObject)msg.obj;
                         try {
                             if(jsonObject.has("status") && jsonObject.getBoolean("status"))
-                                ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
+                                ((LinearLayout)findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
                             else
                                 ((LinearLayout)findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
                         } catch (JSONException e) {
@@ -266,20 +316,111 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
             e.printStackTrace();
         }
 
-        ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-        ((TextView)findViewById(R.id.txtDetailTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-        ((TextView)findViewById(R.id.txtDetailPrice)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-        ((TextView)findViewById(R.id.txtDetailCollection)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        ((TextView)findViewById(R.id.txtDetailBrand)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "heuristica/Heuristica-Italic.otf"));
-        ((TextView)findViewById(R.id.txtDetailDescription)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "heuristica/Heuristica-Italic.otf"));
-        ((Button)findViewById(R.id.btnPutIntoCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+        try {
+            ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+            ((TextView)findViewById(R.id.txtDetailTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+            ((TextView)findViewById(R.id.txtDetailPrice)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+            ((TextView)findViewById(R.id.txtDetailCollection)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            ((TextView)findViewById(R.id.txtDetailBrand)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "heuristica/Heuristica-Italic.otf"));
+            ((TextView)findViewById(R.id.txtDetailDescription)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "heuristica/Heuristica-Italic.otf"));
+            ((Button)findViewById(R.id.btnPutIntoCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getScreenWidth() {
+        Display display = getWindowManager().getDefaultDisplay();
+        screenSize = new Point();
+        display.getSize(screenSize);
+
+        return screenSize.x;
     }
 
     public void onClickHandler(View view) {
 
         try
         {
-            switch (view.getId()) {
+            switch (view.getId())
+            {
+                case R.id.btnPlus:
+                    ((LinearLayout) findViewById(R.id.layLoading)).setVisibility(View.VISIBLE);
+                    moltin.cart.update(menuFragment.cart.getItems().get((int)view.getTag()).getItemIdentifier(),new String[][]{{"quantity",""+(menuFragment.cart.getItems().get((int)view.getTag()).getItemQuantity()+1)}}, new Handler.Callback() {//"wf60kt82vtzkjIMslZ1FmDyV8WUWNQlLxUiRVLS4", new Handler.Callback() {
+                        @Override
+                        public boolean handleMessage(Message msg) {
+                            menuFragment.refresh();
+                            if (msg.what == Constants.RESULT_OK) {
+                                try {
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    });
+                    break;
+                case R.id.btnMinus:
+                    ((LinearLayout) findViewById(R.id.layLoading)).setVisibility(View.VISIBLE);
+                    moltin.cart.update(menuFragment.cart.getItems().get((int)view.getTag()).getItemIdentifier(),new String[][]{{"quantity",""+(menuFragment.cart.getItems().get((int)view.getTag()).getItemQuantity()-1)}}, new Handler.Callback() {//"wf60kt82vtzkjIMslZ1FmDyV8WUWNQlLxUiRVLS4", new Handler.Callback() {
+                        @Override
+                        public boolean handleMessage(Message msg) {
+                            menuFragment.refresh();
+                            if (msg.what == Constants.RESULT_OK) {
+                                try {
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                return true;
+                            } else {
+                                ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.GONE);
+                                return false;
+                            }
+                        }
+                    });
+                    break;
+                case R.id.btnDelete:
+                    ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.VISIBLE);
+                    moltin.cart.remove(menuFragment.cart.getItems().get((int)view.getTag()).getItemIdentifier(), new Handler.Callback() {//"wf60kt82vtzkjIMslZ1FmDyV8WUWNQlLxUiRVLS4", new Handler.Callback() {
+                        @Override
+                        public boolean handleMessage(Message msg) {
+                            menuFragment.refresh();
+                            if (msg.what == Constants.RESULT_OK) {
+                                try {
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                return true;
+                            } else {
+                                ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.GONE);
+                                return false;
+                            }
+                        }
+                    });
+                    break;
+                case R.id.btnCheckout:
+                    if(menuFragment.cart!=null && menuFragment.cart.getItemTotalNumber()!=null && menuFragment.cart.getItemTotalNumber()>0)
+                    {
+                        Intent intent = new Intent(this, BillingActivity.class);
+                        intent.putExtra("JSON",menuFragment.cart.getItemJson().toString());
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Cart is empty", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case R.id.btnMenu:
+                    onHomeClicked();
+                    break;
+                case R.id.btnCart:
+                    onHomeClicked();
+                    break;
                 case R.id.btnPutIntoCart:
                     show();
                     break;
@@ -292,6 +433,10 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
         {
             e.printStackTrace();
         }
+    }
+
+    public void onHomeClicked() {
+        toggle();
     }
 
     public void show()
@@ -349,6 +494,9 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
                                     e.printStackTrace();
                                 }
                                 ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
+
+                                menuFragment.refresh();
+                                toggle();
                                 return true;
                             } else {
                                 Toast.makeText(getApplicationContext(), "Error while adding to cart. Please try again.", Toast.LENGTH_LONG).show();
@@ -377,8 +525,21 @@ public class DetailActivity extends Activity implements NumberPicker.OnValueChan
 
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
         quantity = newVal;
+    }
 
+    @Override
+    public void onFragmentInteractionForCartItem(CartItem item) {
+
+    }
+
+    @Override
+    public void onFragmentChangeForCartItem(TotalCartItem cart) {
+        ((TextView)findViewById(R.id.txtTotalPrice)).setText(cart.getItemTotalPrice());
+    }
+
+    @Override
+    public void onFragmentUpdatedForCartItem() {
+        ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.GONE);
     }
 }

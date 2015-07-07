@@ -1,0 +1,45 @@
+package moltin.example_moltin.fragments;
+
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link DetailFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class DetailFragment extends Fragment {
+    FragmentActivity activity;
+
+    public View rootView;
+
+    public static DetailFragment newInstance() {
+        DetailFragment fragment = new DetailFragment();
+        return fragment;
+    }
+
+    public DetailFragment() {
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = (FragmentActivity) activity;
+        setRetainInstance(true);
+    }
+
+    /*@Override
+    public View onCreateView(LayoutInflater inflater , ViewGroup container , Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+        return rootView;
+    }*/
+
+    @Override
+    public void onViewCreated(View view , Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+}

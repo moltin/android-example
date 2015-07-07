@@ -10,187 +10,212 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/btnBack"
-                            android:src="@drawable/ic_action_back"
-                            android:onClick="onClickHandler"
-                            android:clickable="true" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="ITEM"
-                            android:textColor="@android:color/black"
-                            android:textSize="22dp"
-                            android:id="@+id/txtActivityTitle" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"></LinearLayout>
-                </LinearLayout>
-
-                <com.applidium.shutterbug.FetchableImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:id="@+id/imgDetailPhoto"
-                    android:layout_gravity="center_horizontal"
-                    android:scaleType="centerCrop"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/violet_medium" />
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:gravity="center"
-                    android:id="@+id/layImages"
-                    android:background="@android:color/white"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/scrlImages" >
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:id="@+id/layScrollImages" />
-                    </HorizontalScrollView>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Collection"
-                    android:id="@+id/txtDetailCollection"
-                    android:textColor="@color/gray_medium"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp" />
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="top">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="Ttitle"
-                        android:id="@+id/txtDetailTitle"
-                        android:textColor="@android:color/black"
-                        android:layout_weight="2"
-                        android:gravity="left|center_vertical"
-                        android:textSize="22dp"
-                        android:layout_marginLeft="20dp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="Price"
-                        android:id="@+id/txtDetailPrice"
-                        android:textColor="@color/violet_medium"
-                        android:gravity="top|right"
-                        android:layout_weight="1"
-                        android:textSize="22dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginLeft="20dp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/txtDetailBrand"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/txtDetailDescription"
-                    android:textColor="@android:color/darker_gray"
-                    android:layout_margin="20dp" />
-
-                <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/layModifiers"
-                    android:layout_margin="20dp"></LinearLayout>
+                    android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:id="@+id/layPutIntoCart"
-                    android:visibility="visible">
-
-                    <Button
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:text="Add to cart"
-                        android:id="@+id/btnPutIntoCart"
-                        android:background="@drawable/btn_violet"
-                        android:textColor="@android:color/white"
-                        android:paddingLeft="50dp"
-                        android:paddingRight="50dp"
-                        android:onClick="onClickHandler"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp" />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp">
 
-            </LinearLayout>
-        </ScrollView>
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/btnBack"
+                                android:src="@drawable/ic_action_back"
+                                android:onClick="onClickHandler"
+                                android:clickable="true" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="5"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ITEM"
+                                android:textColor="@android:color/black"
+                                android:textSize="22dp"
+                                android:id="@+id/txtActivityTitle" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="right">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/btnCart"
+                                android:onClick="onClickHandler"
+                                android:src="@drawable/ic_cart_dark"
+                                android:scaleType="fitXY"
+                                android:clickable="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.applidium.shutterbug.FetchableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:id="@+id/imgDetailPhoto"
+                        android:layout_gravity="center_horizontal"
+                        android:scaleType="centerCrop"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/violet_medium" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:id="@+id/layImages"
+                        android:background="@android:color/white"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/scrlImages" >
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:id="@+id/layScrollImages" />
+                        </HorizontalScrollView>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Collection"
+                        android:id="@+id/txtDetailCollection"
+                        android:textColor="@color/gray_medium"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="top">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="Ttitle"
+                            android:id="@+id/txtDetailTitle"
+                            android:textColor="@android:color/black"
+                            android:layout_weight="2"
+                            android:gravity="left|center_vertical"
+                            android:textSize="22dp"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="Price"
+                            android:id="@+id/txtDetailPrice"
+                            android:textColor="@color/violet_medium"
+                            android:gravity="top|right"
+                            android:layout_weight="1"
+                            android:textSize="22dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="20dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Medium Text"
+                        android:id="@+id/txtDetailBrand"
+                        android:textColor="@android:color/darker_gray"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Medium Text"
+                        android:id="@+id/txtDetailDescription"
+                        android:textColor="@android:color/darker_gray"
+                        android:layout_margin="20dp" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layModifiers"
+                        android:layout_margin="20dp"></LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:gravity="top|center_horizontal"
+                        android:id="@+id/layPutIntoCart"
+                        android:visibility="visible">
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:text="Add to cart"
+                            android:id="@+id/btnPutIntoCart"
+                            android:background="@drawable/btn_violet"
+                            android:textColor="@android:color/white"
+                            android:paddingLeft="50dp"
+                            android:paddingRight="50dp"
+                            android:onClick="onClickHandler"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="30dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="vee.android.sample.recyclerview.MainActivity"
+            tools:ignore="MergeRootFrame"
+            android:layout_weight="97" />
 
         <LinearLayout
             android:orientation="vertical"
