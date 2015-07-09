@@ -346,6 +346,7 @@ public class PaymentActivity extends Activity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            showAlert(false,"We are experiencing some problems, please try later!");
                         }
 
                         return true;
@@ -373,6 +374,7 @@ public class PaymentActivity extends Activity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            showAlert(false,"We are experiencing some problems, please try later!");
                         }
                         return false;
                     }
@@ -416,6 +418,7 @@ public class PaymentActivity extends Activity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            showAlert(false,"We are experiencing some problems, please try later!");
                         }
 
                         return true;
@@ -428,6 +431,7 @@ public class PaymentActivity extends Activity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            showAlert(false,"We are experiencing some problems, please try later!");
                         }
                         return false;
                     }
@@ -464,6 +468,7 @@ public class PaymentActivity extends Activity {
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
+                            showAlert(false,"We are experiencing some problems, please try later!");
                         }
 
                         return true;
@@ -477,6 +482,7 @@ public class PaymentActivity extends Activity {
                             showAlert(false,errors);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            showAlert(false,"We are experiencing some problems, please try later!");
                         }
                         return false;
                     }

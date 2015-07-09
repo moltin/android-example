@@ -72,6 +72,8 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
     private int[] modifierIndex=null;
     ArrayList<ModifierItem> modItems=null;
     ArrayList<VariationItem> varItems=null;
+    private boolean addSingleProduct=true;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -441,86 +443,135 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
 
     public void show()
     {
-
-        final Dialog d = new Dialog(this);
-        d.setTitle("Select quantity");
-        d.setContentView(R.layout.dialog);
-        Button b1 = (Button) d.findViewById(R.id.button1);
-        b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
-        b1.setTextColor(getResources().getColor(android.R.color.white));
-        b1.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        Button b2 = (Button) d.findViewById(R.id.button2);
-        b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
-        b2.setTextColor(getResources().getColor(android.R.color.white));
-        b2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
-        np.setMaxValue(100);
-        np.setMinValue(1);
-        np.setWrapSelectorWheel(false);
-        np.setOnValueChangedListener(this);
-        b1.setOnClickListener(new View.OnClickListener()
+        if(addSingleProduct)
         {
-            @Override
-            public void onClick(View v) {
-                ((Button)findViewById(R.id.btnPutIntoCart)).setEnabled(false);
-                try {
+            ((Button)findViewById(R.id.btnPutIntoCart)).setEnabled(false);
+            try {
 
-                    String[][] modsArray=new String[0][0];
-                    if(modItems!=null)
+                String[][] modsArray=new String[0][0];
+                if(modItems!=null)
+                {
+                    modsArray=new String[modItems.size()][2];
+                    for(int i=0;i<modItems.size();i++)
                     {
-                        modsArray=new String[modItems.size()][2];
-                        for(int i=0;i<modItems.size();i++)
-                        {
-                            modsArray[i][0]=/*"modifier["+*/modItems.get(i).getItemId()/*+"]"*/;
-                            modsArray[i][1]=modItems.get(i).getItemVariation().get(modifierIndex[i]).getItemId();
+                        modsArray[i][0]=/*"modifier["+*/modItems.get(i).getItemId()/*+"]"*/;
+                        modsArray[i][1]=modItems.get(i).getItemVariation().get(modifierIndex[i]).getItemId();
+                    }
+                }
+
+                ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.VISIBLE);
+                moltin.cart.insert(itemId, 1, modsArray, new Handler.Callback() {
+                    @Override
+                    public boolean handleMessage(Message msg) {
+                        ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.GONE);
+                        JSONObject jsonObject = (JSONObject) msg.obj;
+                        if (msg.what == Constants.RESULT_OK) {
+
+                            Toast.makeText(getApplicationContext(), "Product added to cart.", Toast.LENGTH_LONG).show();
+                            try {
+                                if (jsonObject.has("status") && jsonObject.getBoolean("status"))
+                                    ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
+                                else
+                                    ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
+
+                            menuFragment.refresh();
+                            toggle();
+                            return true;
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Error while adding to cart. Please try again.", Toast.LENGTH_LONG).show();
+                            ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
+                            return false;
                         }
                     }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            final Dialog d = new Dialog(this);
+            d.setTitle("Select quantity");
+            d.setContentView(R.layout.dialog);
+            Button b1 = (Button) d.findViewById(R.id.button1);
+            b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
+            b1.setTextColor(getResources().getColor(android.R.color.white));
+            b1.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            Button b2 = (Button) d.findViewById(R.id.button2);
+            b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
+            b2.setTextColor(getResources().getColor(android.R.color.white));
+            b2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
+            np.setMaxValue(100);
+            np.setMinValue(1);
+            np.setWrapSelectorWheel(false);
+            np.setOnValueChangedListener(this);
+            b1.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    ((Button)findViewById(R.id.btnPutIntoCart)).setEnabled(false);
+                    try {
 
-                    ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.VISIBLE);
-                    moltin.cart.insert(itemId, np.getValue(), modsArray, new Handler.Callback() {
-                        @Override
-                        public boolean handleMessage(Message msg) {
-                            ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.GONE);
-                            JSONObject jsonObject = (JSONObject) msg.obj;
-                            if (msg.what == Constants.RESULT_OK) {
-
-                                Toast.makeText(getApplicationContext(), "Product added to cart.", Toast.LENGTH_LONG).show();
-                                try {
-                                    if (jsonObject.has("status") && jsonObject.getBoolean("status"))
-                                        ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
-                                    else
-                                        ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
-
-                                menuFragment.refresh();
-                                toggle();
-                                return true;
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Error while adding to cart. Please try again.", Toast.LENGTH_LONG).show();
-                                ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
-                                return false;
+                        String[][] modsArray=new String[0][0];
+                        if(modItems!=null)
+                        {
+                            modsArray=new String[modItems.size()][2];
+                            for(int i=0;i<modItems.size();i++)
+                            {
+                                modsArray[i][0]=/*"modifier["+*/modItems.get(i).getItemId()/*+"]"*/;
+                                modsArray[i][1]=modItems.get(i).getItemVariation().get(modifierIndex[i]).getItemId();
                             }
                         }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                        ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.VISIBLE);
+                        moltin.cart.insert(itemId, np.getValue(), modsArray, new Handler.Callback() {
+                            @Override
+                            public boolean handleMessage(Message msg) {
+                                ((LinearLayout)findViewById(R.id.layLoading)).setVisibility(View.GONE);
+                                JSONObject jsonObject = (JSONObject) msg.obj;
+                                if (msg.what == Constants.RESULT_OK) {
+
+                                    Toast.makeText(getApplicationContext(), "Product added to cart.", Toast.LENGTH_LONG).show();
+                                    try {
+                                        if (jsonObject.has("status") && jsonObject.getBoolean("status"))
+                                            ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
+                                        else
+                                            ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
+
+                                    menuFragment.refresh();
+                                    toggle();
+                                    return true;
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Error while adding to cart. Please try again.", Toast.LENGTH_LONG).show();
+                                    ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
+                                    return false;
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    d.dismiss();
                 }
-                d.dismiss();
-            }
-        });
-        b2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-            }
-        });
-        d.show();
-
-
+            });
+            b2.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    d.dismiss();
+                }
+            });
+            d.show();
+        }
     }
 
     @Override
