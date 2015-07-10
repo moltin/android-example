@@ -25,15 +25,17 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
     private final FragmentActivity activity;
     private List<CollectionItem> items = new ArrayList<CollectionItem>();
     private int width;
+    private int offset;
     private int countDownloadedPicture=0;
     private OnItemClickListener itemClickListener;
     private OnPicturesDownloadListener picturesDownloadListener;
     private ShutterbugManager shutterbugManager;
 
-    public CollectionListAdapterHolder(FragmentActivity mActivity, List<CollectionItem> items, int width) {
+    public CollectionListAdapterHolder(FragmentActivity mActivity, List<CollectionItem> items, int width, int offset) {
         this.activity = mActivity;
         this.items = items;
         this.width = width;
+        this.offset = offset;
         this.countDownloadedPicture=0;
         this.shutterbugManager = ShutterbugManager.getSharedImageManager(activity.getApplicationContext());
     }
@@ -47,7 +49,7 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
         params.width = width;
         sView.setLayoutParams(params);
 
-        for(int i=0;i<items.size() && i<10;i++)
+        for(int i=offset;i<items.size() && i<offset+5;i++)
         try {
             String imageUrl=items.get(i).getItemPictureUrl()[0];
             if(imageUrl!=null && imageUrl.length()>3)
@@ -55,22 +57,22 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
                 shutterbugManager.download(imageUrl, new ShutterbugManager.ShutterbugManagerListener() {
                     @Override
                     public void onImageSuccess(ShutterbugManager imageManager, Bitmap bitmap, String url) {
-                        checkIfPictureAreDownloaded();
+                        checkIfPicturesAreDownloaded();
                     }
 
                     @Override
                     public void onImageFailure(ShutterbugManager imageManager, String url) {
-                        checkIfPictureAreDownloaded();
+                        checkIfPicturesAreDownloaded();
                     }
                 });
             }
             else
             {
-                checkIfPictureAreDownloaded();
+                checkIfPicturesAreDownloaded();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            checkIfPictureAreDownloaded();
+            checkIfPicturesAreDownloaded();
         }
 
         return new ViewHolder(sView);
@@ -107,7 +109,7 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
         }
     }
 
-    public void checkIfPictureAreDownloaded()
+    public void checkIfPicturesAreDownloaded()
     {
         countDownloadedPicture++;
         if(getItemCount()==countDownloadedPicture)

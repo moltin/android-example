@@ -19,25 +19,26 @@ import moltin.example_moltin.interfaces.CollectionListAdapterHolder;
 import moltin.example_moltin.interfaces.CustomRecyclerView;
 
 public class CollectionFragment extends android.app.Fragment {
-    FragmentActivity activity;
-    CustomRecyclerView customRecyclerView;
-    CollectionListAdapterHolder adapter;
-    LinearLayoutManager layoutManager;
+    private FragmentActivity activity;
+    public CustomRecyclerView customRecyclerView;
+    private CollectionListAdapterHolder adapter;
+    private LinearLayoutManager layoutManager;
     private OnCollectionFragmentInteractionListener mCollectionFragmentInteractionListener;
     private OnCollectionFragmentPictureDownloadListener mCollectionFragmentPictureDownloadListener;
-
     private ArrayList<CollectionItem> items;
     private int width;
+    private int offset;
     public View rootView;
 
-    public static CollectionFragment newInstance(ArrayList<CollectionItem> posts, int width) {
+    public static CollectionFragment newInstance(ArrayList<CollectionItem> posts, int width, int offset) {
         CollectionFragment fragment = new CollectionFragment();
-        fragment.setArgs(posts, width);
+        fragment.setArgs(posts, width, offset);
         return fragment;
     }
 
-    public void setArgs(ArrayList<CollectionItem> posts, int width) {
+    public void setArgs(ArrayList<CollectionItem> posts, int width, int offset) {
         this.items = posts;
+        this.offset = offset;
         this.width = width;
     }
 
@@ -71,7 +72,7 @@ public class CollectionFragment extends android.app.Fragment {
 
         customRecyclerView = (CustomRecyclerView) rootView.findViewById(R.id.recycler_view);
 
-        adapter = new CollectionListAdapterHolder(activity, items, width);
+        adapter = new CollectionListAdapterHolder(activity, items, width, offset);
 
         customRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -84,6 +85,9 @@ public class CollectionFragment extends android.app.Fragment {
                     CollectionActivity act = CollectionActivity.instance;
                     if (act != null)
                         act.setPosition(layoutManager.findFirstVisibleItemPosition());
+
+                    if (act != null && items.size()-1==layoutManager.findFirstVisibleItemPosition())
+                        act.getNewPage(items.size());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

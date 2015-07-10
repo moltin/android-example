@@ -1,14 +1,11 @@
 package moltin.example_moltin.activities;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBar;
 import android.view.Display;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,30 +31,27 @@ import moltin.example_moltin.fragments.ProductFragment;
 
 public class ProductActivity extends SlidingFragmentActivity implements CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, CartFragment.OnFragmentInteractionListener, ProductFragment.OnProductFragmentInteractionListener {
     private Moltin moltin;
-    private Context context;
     private ArrayList<ProductItem> items;
     private ArrayList<CartItem> itemsForCart;
     private TotalCartItem cart;
     public static ProductActivity instance = null;
 
-    private ActionBar actionBar;
     private SlidingMenu menu;
     private android.app.Fragment mContent;
     private CartFragment menuFragment;
 
     private Point screenSize;
-    private int position=0;
-
-    private LinearLayout layIndex;
 
     private String itemId="";
     private String collection="";
 
+    private int currentOffset=0;
+    private int limit=20;
+    private boolean endOfList=false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        context=this;
 
         instance = this;
 
@@ -75,10 +69,13 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
         menu.setBehindScrollScale(0.5f);
         setSlidingActionBarEnabled(true);
 
+        currentOffset=0;
+        endOfList=false;
+
         items=new ArrayList<ProductItem>();
 
         if (savedInstanceState != null)
-            mContent = getFragmentManager().getFragment(savedInstanceState, "mContent");
+            mContent = getFragmentManager().getFragment(savedInstanceState, "mContentProduct");
         if (mContent == null) {
             mContent = ProductFragment.newInstance(items);
         }
@@ -215,14 +212,17 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
     }
 
     private void getProducts() throws Exception {
+
+        if(endOfList)
+            return;
+
         ((LinearLayout)findViewById(R.id.layMainLoading)).setVisibility(View.VISIBLE);
-        moltin.product.listing(new String[][]{{"collection", itemId}}, new Handler.Callback() {
+        moltin.product.listing(new String[][]{{"collection", itemId},{"limit",Integer.toString(limit)},{"offset",Integer.toString(currentOffset)}}, new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
                 ((LinearLayout)findViewById(R.id.layMainLoading)).setVisibility(View.GONE);
                 if (msg.what == Constants.RESULT_OK) {
 
-                    items = new ArrayList<ProductItem>();
                     try {
                         JSONObject json = (JSONObject) msg.obj;
                         if (json.has("status") && json.getBoolean("status") && json.has("result") && json.getJSONArray("result").length() > 0) {
@@ -235,13 +235,13 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
                             Toast.makeText(getApplicationContext(), "No products available in this category.", Toast.LENGTH_LONG).show();
                         }
 
-                        Fragment fragment = ProductFragment.newInstance(items);
-                        mContent = fragment;
-                        getFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.container, mContent)
-                                .commit();
-                        menu.showContent();
+                        if(items.size()==json.getJSONObject("pagination").getInt("total"))
+                            endOfList=true;
+                        else
+                            endOfList=false;
+
+                        ((ProductFragment) mContent).loading=false;
+                        ((ProductFragment) mContent).adapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -252,6 +252,16 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
                 }
             }
         });
+    }
+
+    public void getNewPage(int currentNumber)
+    {
+        currentOffset=currentNumber;
+        try {
+            getProducts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

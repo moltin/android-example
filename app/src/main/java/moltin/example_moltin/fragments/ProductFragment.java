@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import moltin.example_moltin.R;
+import moltin.example_moltin.activities.ProductActivity;
 import moltin.example_moltin.data.ProductItem;
 import moltin.example_moltin.interfaces.ProductListAdapterHolder;
 
@@ -24,15 +25,17 @@ import moltin.example_moltin.interfaces.ProductListAdapterHolder;
  * create an instance of this fragment.
  */
 public class ProductFragment extends android.app.Fragment {
-    FragmentActivity activity;
-    RecyclerView recyclerView;
-    ProductListAdapterHolder adapter;
-    LinearLayoutManager layoutManager;
+    private FragmentActivity activity;
+    public RecyclerView recyclerView;
+    public ProductListAdapterHolder adapter;
+    private LinearLayoutManager layoutManager;
     private OnProductFragmentInteractionListener mListener;
-
     private ArrayList<ProductItem> items;
     private int width;
     public View rootView;
+    public boolean loading = false;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private int currentOffset=0;
 
     public static ProductFragment newInstance(ArrayList<ProductItem> posts) {
         ProductFragment fragment = new ProductFragment();
@@ -78,11 +81,28 @@ public class ProductFragment extends android.app.Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
-        //recyclerView.setWidth(width);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                visibleItemCount = ((LinearLayoutManager)recyclerView.getLayoutManager()).getChildCount();
+                totalItemCount = ((LinearLayoutManager)recyclerView.getLayoutManager()).getItemCount();
+                pastVisiblesItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+
+                if (!loading) {
+                    if ( (visibleItemCount+pastVisiblesItems) >= totalItemCount) {
+                        loading = true;
+                        ProductActivity act = ProductActivity.instance;
+
+                        act.getNewPage(items.size());
+                    }
+                }
+            }
+        });
 
         adapter.SetOnItemClickListener(new ProductListAdapterHolder.OnItemClickListener() {
 

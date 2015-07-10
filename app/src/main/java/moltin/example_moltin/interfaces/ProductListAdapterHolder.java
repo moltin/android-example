@@ -56,7 +56,7 @@ public class ProductListAdapterHolder extends RecyclerView.Adapter<ProductListAd
                 }
                 else holder.image.setImageResource(android.R.color.transparent);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
     }

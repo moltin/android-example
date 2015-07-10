@@ -1,6 +1,5 @@
 package moltin.example_moltin.activities;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -52,6 +51,10 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
 
     private LinearLayout layIndex;
 
+    private int currentOffset=0;
+    private int limit=20;
+    private boolean endOfList=false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +74,15 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
         menu.setBehindScrollScale(0.5f);
         setSlidingActionBarEnabled(true);
 
+        currentOffset=0;
+        endOfList=false;
+
         items=new ArrayList<CollectionItem>();
 
         if (savedInstanceState != null)
-            mContent = getFragmentManager().getFragment(savedInstanceState, "mContent");
+            mContent = getFragmentManager().getFragment(savedInstanceState, "mContentCollection");
         if (mContent == null) {
-            mContent = CollectionFragment.newInstance(items,getListviewWidth());
+            mContent = CollectionFragment.newInstance(items,getListviewWidth(),currentOffset);
         }
 
         setContentView(R.layout.activity_collection);
@@ -101,7 +107,7 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
 
         try
         {
-            moltin.authenticate("umRG34nxZVGIuCSPfYf8biBSvtABgTR8GMUtflyE", new Handler.Callback() {//"wf60kt82vtzkjIMslZ1FmDyV8WUWNQlLxUiRVLS4", new Handler.Callback() {
+            moltin.authenticate("umRG34nxZVGIuCSPfYf8biBSvtABgTR8GMUtflyE", new Handler.Callback() {
                 @Override
                 public boolean handleMessage(Message msg) {
                     if (msg.what == Constants.RESULT_OK) {
@@ -165,6 +171,16 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
                 ((ImageView)layIndex.getChildAt(newPosition)).setImageDrawable(getResources().getDrawable(R.drawable.circle_active));
                 position=newPosition;
             }
+        }
+    }
+
+    public void getNewPage(int currentNumber)
+    {
+        currentOffset=currentNumber;
+        try {
+            getCollections();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -289,14 +305,14 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
 
     private void getCollections() throws Exception {
 
+        if(endOfList)
+            return;
+
         ((LinearLayout)findViewById(R.id.layMainLoading)).setVisibility(View.VISIBLE);
-        moltin.collection.listing((JSONObject) null,new Handler.Callback() {
+        moltin.collection.listing(new String[][]{{"limit",Integer.toString(limit)},{"offset",Integer.toString(currentOffset)}},new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
-                //((LinearLayout)findViewById(R.id.layMainLoading)).setVisibility(View.GONE);
                 if (msg.what == Constants.RESULT_OK) {
-
-                    items=new ArrayList<CollectionItem>();
                     try {
                         JSONObject json=(JSONObject)msg.obj;
                         if(json.has("status") && json.getBoolean("status") && json.has("result") && json.getJSONArray("result").length()>0)
@@ -307,14 +323,17 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
                             }
                         }
 
-                        Fragment fragment= CollectionFragment.newInstance(items,getListviewWidth());
-                        mContent = fragment;
-                        getFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.container, mContent)
-                                .commit();
-                        menu.showContent();
+                        if(items.size()==json.getJSONObject("pagination").getInt("total"))
+                            endOfList=true;
+                        else
+                            endOfList=false;
 
+                        if(currentOffset>0)
+                        {
+                            onCollectionFragmentPictureDownloadListener();
+                        }
+
+                        ((CollectionFragment)mContent).customRecyclerView.getAdapter().notifyDataSetChanged();
                         setInitialPosition();
                     }
                     catch (Exception e)
