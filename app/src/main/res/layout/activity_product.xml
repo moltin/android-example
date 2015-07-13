@@ -26,17 +26,16 @@ android:layout_height="match_parent">
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="left|center_vertical">
+                    android:gravity="center_vertical|right">
 
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:id="@+id/btnMenu"
                         android:onClick="onClickHandler"
-                        android:src="@drawable/ic_menu"
+                        android:src="@drawable/ic_action_back_white"
                         android:scaleType="fitXY"
-                        android:clickable="true"
-                        android:visibility="gone" />
+                        android:clickable="true" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -59,7 +58,7 @@ android:layout_height="match_parent">
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical|right">
+                    android:gravity="left|center_vertical">
 
                     <ImageView
                         android:layout_width="35dp"

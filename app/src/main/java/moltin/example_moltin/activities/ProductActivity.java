@@ -194,7 +194,7 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
                     }
                     break;
                 case R.id.btnMenu:
-                    onHomeClicked();
+                    finish();
                     break;
                 case R.id.btnCart:
                     onHomeClicked();

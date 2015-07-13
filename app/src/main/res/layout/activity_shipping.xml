@@ -30,7 +30,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="left|center_vertical">
+                    android:gravity="center_vertical|right">
 
                     <ImageView
                         android:layout_width="35dp"
