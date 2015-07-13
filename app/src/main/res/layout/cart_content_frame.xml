@@ -31,12 +31,37 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/cart_content_frame"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="77"
-                android:background="@color/gray_dark"/>
+                android:background="@color/gray_dark">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/layEmptyCart"
+                    android:gravity="top|center_horizontal"
+                    android:background="@color/gray_dark">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your cart is empty"
+                        android:id="@+id/textView"
+                        android:textColor="@color/violet_medium"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/cart_content_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="77" />
+
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:orientation="vertical"
