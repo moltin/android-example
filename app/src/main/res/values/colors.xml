@@ -6,5 +6,6 @@
 
     <color name="gray_medium">#3B4954</color>
     <color name="gray_light">#637583</color>
+    <color name="gray_superlight">#cccccc</color>
     <color name="gray_dark">#2C3941</color>
 </resources>

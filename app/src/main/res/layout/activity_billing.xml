@@ -261,7 +261,9 @@
                             android:text="Billing address same as shipping address"
                             android:id="@+id/cbSameAsShippingAddress"
                             android:textColor="@android:color/white"
-                            android:checked="true" />
+                            android:checked="true"
+                            android:layout_margin="10dp"
+                            android:button="@drawable/checkbox" />
 
                     </LinearLayout>
                 </LinearLayout>

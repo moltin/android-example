@@ -224,7 +224,7 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
                     ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
 
                     spinner.setAdapter(spinnerArrayAdapter);
-
+                    spinner.setBackgroundColor(getResources().getColor(R.color.gray_superlight));
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
