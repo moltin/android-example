@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:text="DELETE"
                 android:layout_marginRight="20dp"
-                android:textColor="@color/gray_medium" />
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
