@@ -2,34 +2,29 @@ package moltin.example_moltin.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 
 import moltin.android_sdk.Moltin;
 import moltin.android_sdk.utilities.Constants;
 import moltin.example_moltin.R;
-import moltin.example_moltin.data.CountryItem;
-import moltin.example_moltin.data.ShippingItem;
 
 public class PaymentActivity extends Activity {
 
@@ -69,12 +64,6 @@ public class PaymentActivity extends Activity {
     private JSONObject jsonPayment;
     private String json;
 
-    private ArrayList<ShippingItem> shippingArray;
-    private int lastShippingIndex=0;
-
-    AlertDialog dialog;
-    ArrayList<CountryItem> listCountry;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +89,9 @@ public class PaymentActivity extends Activity {
         b_address_2 = getIntent().getExtras().getString("B_ADDRESS_2");
         b_country = getIntent().getExtras().getString("B_COUNTRY");
         b_postcode = getIntent().getExtras().getString("B_POSTCODE");
+
+        ((TextView)findViewById(R.id.txtPaymentCardNumber)).setRawInputType(InputType.TYPE_CLASS_NUMBER);
+        ((TextView)findViewById(R.id.txtPaymentCVC)).setRawInputType(InputType.TYPE_CLASS_NUMBER);
 
         changeFonts((RelativeLayout) findViewById(R.id.layMain));
     }
@@ -128,9 +120,9 @@ public class PaymentActivity extends Activity {
                         number=((TextView)findViewById(R.id.txtPaymentCardNumber)).getText().toString();
                     }
 
-                    if( ((TextView)findViewById(R.id.txtPaymentExpirationMonth)).getText().toString().trim().equals(""))
+                    if( ((TextView)findViewById(R.id.txtPaymentExpirationMonth)).getText().toString().trim().equals("") || Integer.parseInt(((TextView) findViewById(R.id.txtPaymentExpirationMonth)).getText().toString().trim())>12)
                     {
-                        ((TextView)findViewById(R.id.txtPaymentExpirationMonth)).setError("Credit card expiration month is required!");
+                        ((TextView)findViewById(R.id.txtPaymentExpirationMonth)).setError("Valid credit card expiration month is required!");
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -139,9 +131,9 @@ public class PaymentActivity extends Activity {
                         expiry_month=((TextView)findViewById(R.id.txtPaymentExpirationMonth)).getText().toString();
                     }
 
-                    if( ((TextView)findViewById(R.id.txtPaymentExpirationYear)).getText().toString().trim().equals(""))
+                    if( ((TextView)findViewById(R.id.txtPaymentExpirationYear)).getText().toString().trim().equals("") || Integer.parseInt(((TextView) findViewById(R.id.txtPaymentExpirationYear)).getText().toString().trim())>3000)
                     {
-                        ((TextView)findViewById(R.id.txtPaymentExpirationYear)).setError("Credit card expiration year is required!");
+                        ((TextView)findViewById(R.id.txtPaymentExpirationYear)).setError("Valid credit card expiration year is required!");
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -167,12 +159,6 @@ public class PaymentActivity extends Activity {
                         findCustomer();
                     }
                     break;
-                case R.id.txtPaymentExpirationMonth:
-                    showMonths();
-                    break;
-                case R.id.txtPaymentExpirationYear:
-                    showYears();
-                    break;
                 case R.id.btnBack:
                     finish();
                     break;
@@ -182,101 +168,6 @@ public class PaymentActivity extends Activity {
         {
             e.printStackTrace();
         }
-    }
-
-    public void showMonths()
-    {
-
-        final Dialog d = new Dialog(this);
-        d.setTitle("Select month");
-        d.setContentView(R.layout.dialog);
-        Button b1 = (Button) d.findViewById(R.id.button1);
-        b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
-        b1.setTextColor(getResources().getColor(android.R.color.white));
-        b1.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        Button b2 = (Button) d.findViewById(R.id.button2);
-        b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
-        b2.setTextColor(getResources().getColor(android.R.color.white));
-        b2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
-
-        month=1;
-        np.setMaxValue(12);
-        np.setMinValue(1);
-        np.setWrapSelectorWheel(false);
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                month=i1;
-            }
-        });
-        b1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                ((TextView)findViewById(R.id.txtPaymentExpirationMonth)).setText(""+month);
-                d.dismiss();
-            }
-        });
-        b2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                if(((TextView)findViewById(R.id.txtPaymentExpirationMonth)).getText().toString().length()>0)
-                    Integer.parseInt(((TextView)findViewById(R.id.txtPaymentExpirationMonth)).getText().toString());
-                d.dismiss();
-            }
-        });
-        d.show();
-    }
-
-    public void showYears()
-    {
-
-        final Dialog d = new Dialog(this);
-        d.setTitle("Select year");
-        d.setContentView(R.layout.dialog);
-        Button b1 = (Button) d.findViewById(R.id.button1);
-        b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
-        b1.setTextColor(getResources().getColor(android.R.color.white));
-        b1.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        Button b2 = (Button) d.findViewById(R.id.button2);
-        b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
-        b2.setTextColor(getResources().getColor(android.R.color.white));
-        b2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
-
-        Calendar calendar = Calendar.getInstance();
-        int yearToday = calendar.get(Calendar.YEAR);
-        year=yearToday;
-
-        np.setMaxValue(yearToday + 20);
-        np.setMinValue(yearToday);
-        np.setWrapSelectorWheel(false);
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                year=i1;
-            }
-        });
-        b1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                ((TextView)findViewById(R.id.txtPaymentExpirationYear)).setText(""+year);
-                d.dismiss();
-            }
-        });
-        b2.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                if(((TextView)findViewById(R.id.txtPaymentExpirationYear)).getText().toString().length()>0)
-                    Integer.parseInt(((TextView)findViewById(R.id.txtPaymentExpirationYear)).getText().toString());
-                d.dismiss();
-            }
-        });
-        d.show();
     }
 
     private void eraseCurrentCart()

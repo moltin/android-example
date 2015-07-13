@@ -124,7 +124,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" >
 
-                                <TextView
+                                <EditText
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -137,10 +137,9 @@
                                     android:textColor="@android:color/white"
                                     android:textSize="18dp"
                                     android:singleLine="true"
-                                    android:clickable="true"
-                                    android:onClick="onClickHandler"/>
+                                    android:inputType="number"/>
 
-                                <TextView
+                                <EditText
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -153,8 +152,7 @@
                                     android:textColor="@android:color/white"
                                     android:textSize="18dp"
                                     android:singleLine="true"
-                                    android:clickable="true"
-                                    android:onClick="onClickHandler"/>
+                                    android:inputType="number"/>
                             </LinearLayout>
 
                             <LinearLayout
