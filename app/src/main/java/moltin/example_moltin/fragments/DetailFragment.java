@@ -15,8 +15,6 @@ import android.view.View;
 public class DetailFragment extends Fragment {
     FragmentActivity activity;
 
-    public View rootView;
-
     public static DetailFragment newInstance() {
         DetailFragment fragment = new DetailFragment();
         return fragment;
@@ -31,12 +29,6 @@ public class DetailFragment extends Fragment {
         this.activity = (FragmentActivity) activity;
         setRetainInstance(true);
     }
-
-    /*@Override
-    public View onCreateView(LayoutInflater inflater , ViewGroup container , Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        return rootView;
-    }*/
 
     @Override
     public void onViewCreated(View view , Bundle savedInstanceState) {

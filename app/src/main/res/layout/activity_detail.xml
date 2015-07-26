@@ -56,7 +56,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="ITEM"
+                                android:text="@string/text_item"
                                 android:textColor="@android:color/black"
                                 android:textSize="22dp"
                                 android:id="@+id/txtActivityTitle" />
@@ -118,7 +118,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Collection"
+                        android:text="@string/text_collection"
                         android:id="@+id/txtDetailCollection"
                         android:textColor="@color/gray_medium"
                         android:layout_marginLeft="20dp"
@@ -133,7 +133,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Ttitle"
+                            android:text="@string/text_title"
                             android:id="@+id/txtDetailTitle"
                             android:textColor="@android:color/black"
                             android:layout_weight="2"
@@ -144,7 +144,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Price"
+                            android:text="@string/text_price"
                             android:id="@+id/txtDetailPrice"
                             android:textColor="@color/violet_medium"
                             android:gravity="top|right"
@@ -158,7 +158,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Medium Text"
+                        android:text=""
                         android:id="@+id/txtDetailBrand"
                         android:textColor="@android:color/darker_gray"
                         android:layout_marginLeft="20dp"
@@ -169,7 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Medium Text"
+                        android:text=""
                         android:id="@+id/txtDetailDescription"
                         android:textColor="@android:color/darker_gray"
                         android:layout_margin="20dp" />
@@ -192,7 +192,7 @@
                         <Button
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
-                            android:text="Add to cart"
+                            android:text="@string/text_add_to_cart"
                             android:id="@+id/btnPutIntoCart"
                             android:background="@drawable/btn_violet"
                             android:textColor="@android:color/white"

@@ -17,9 +17,9 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-        ((TextView)findViewById(R.id.txtCollectionName)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-        ((Button)findViewById(R.id.btnGo)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+        ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_bold)));
+        ((TextView)findViewById(R.id.txtCollectionName)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_bold)));
+        ((Button)findViewById(R.id.btnGo)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_bold)));
     }
 
     public void onClickHandler(View view) {

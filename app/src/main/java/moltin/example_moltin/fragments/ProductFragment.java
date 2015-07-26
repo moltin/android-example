@@ -31,11 +31,9 @@ public class ProductFragment extends android.app.Fragment {
     private LinearLayoutManager layoutManager;
     private OnProductFragmentInteractionListener mListener;
     private ArrayList<ProductItem> items;
-    private int width;
     public View rootView;
     public boolean loading = false;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
-    private int currentOffset=0;
 
     public static ProductFragment newInstance(ArrayList<ProductItem> posts) {
         ProductFragment fragment = new ProductFragment();
@@ -116,6 +114,6 @@ public class ProductFragment extends android.app.Fragment {
 
 
     public interface OnProductFragmentInteractionListener {
-        public void onFragmentInteractionForProductItem(ProductItem itemId);
+        void onFragmentInteractionForProductItem(ProductItem itemId);
     }
 }

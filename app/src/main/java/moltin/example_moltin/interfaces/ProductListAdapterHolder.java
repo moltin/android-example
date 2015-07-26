@@ -42,8 +42,8 @@ public class ProductListAdapterHolder extends RecyclerView.Adapter<ProductListAd
         holder.title.setText(items.get(position).getItemName());
         holder.price.setText(items.get(position).getItemPrice());
 
-        ((TextView)holder.price).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        ((TextView)holder.title).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+        ((TextView)holder.price).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), activity.getString(R.string.font_regular)));
+        ((TextView)holder.title).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), activity.getString(R.string.font_bold)));
 
         holder.image.setImageResource(android.R.color.transparent);
         if(items.get(position).getItemPictureUrl()!=null && items.get(position).getItemPictureUrl().length>0);
@@ -88,7 +88,7 @@ public class ProductListAdapterHolder extends RecyclerView.Adapter<ProductListAd
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {

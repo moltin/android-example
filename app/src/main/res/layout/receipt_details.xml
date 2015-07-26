@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SHIPPING"
+                android:text="@string/text_shipping"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:textSize="16dp"
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Courier"
+                android:text="@string/text_courier"
                 android:textColor="@color/gray_medium"
                 android:textSize="18dp" />
         </LinearLayout>
@@ -93,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cost"
+                android:text="@string/text_cost"
                 android:textColor="@color/gray_medium"
                 android:textSize="18dp" />
         </LinearLayout>
@@ -143,7 +143,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ADDRESS"
+                android:text="@string/text_address"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:textSize="16dp"
@@ -194,7 +194,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PAYMENT"
+                android:text="@string/text_payment_upper"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:textSize="16dp"
@@ -210,7 +210,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Card"
+                android:text="@string/text_card"
                 android:textColor="@color/gray_medium"
                 android:textSize="18dp" />
         </LinearLayout>
@@ -256,7 +256,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subtotal"
+                android:text="@string/text_subtotal"
                 android:textColor="@color/gray_medium"
                 android:textSize="18dp" />
         </LinearLayout>
@@ -302,7 +302,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delivery"
+                android:text="@string/text_delivery"
                 android:textColor="@color/gray_medium"
                 android:textSize="18dp" />
         </LinearLayout>
@@ -348,7 +348,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total"
+                android:text="@string/text_total"
                 android:textColor="@color/gray_medium"
                 android:textSize="18dp" />
         </LinearLayout>

@@ -26,7 +26,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SHOPPING CART"
+                    android:text="@string/text_shopping_cart"
                     android:id="@+id/txtActivityTitleCart"
                     android:textColor="@android:color/white" />
             </LinearLayout>
@@ -48,7 +48,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Your cart is empty"
+                        android:text="@string/text_your_cart_is_empty"
                         android:id="@+id/textView"
                         android:textColor="@color/violet_medium"
                         android:textSize="14dp" />
@@ -80,7 +80,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="TOTAL PRICE"
+                        android:text="@string/text_total_price"
                         android:id="@+id/txtTotal"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="10dp"
@@ -103,7 +103,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="CHECKOUT"
+                    android:text="@string/text_checkout"
                     android:id="@+id/btnCheckout"
                     android:background="@drawable/btn_violet"
                     android:textColor="@android:color/white"

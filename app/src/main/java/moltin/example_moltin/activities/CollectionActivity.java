@@ -33,15 +33,13 @@ import moltin.example_moltin.fragments.CartFragment;
 import moltin.example_moltin.fragments.CollectionFragment;
 
 
-public class CollectionActivity extends SlidingFragmentActivity implements CollectionFragment.OnCollectionFragmentPictureDownloadListener, CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, CartFragment.OnFragmentInteractionListener, CollectionFragment.OnCollectionFragmentInteractionListener {
+public class CollectionActivity extends SlidingFragmentActivity implements CollectionFragment.OnCollectionFragmentPictureDownloadListener, CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, CollectionFragment.OnCollectionFragmentInteractionListener {
     private Moltin moltin;
-    private Context context;
     private ArrayList<CollectionItem> items;
     private ArrayList<CartItem> itemsForCart;
     private TotalCartItem cart;
     public static CollectionActivity instance = null;
 
-    private ActionBar actionBar;
     private SlidingMenu menu;
     private android.app.Fragment mContent;
     private CartFragment menuFragment;
@@ -58,8 +56,6 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        context=this;
 
         instance = this;
 
@@ -102,12 +98,12 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
                 .replace(R.id.cart_content_frame, menuFragment)
                 .commit();
 
-        ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        ((TextView)findViewById(R.id.txtActivityTitleCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+        ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
+        ((TextView)findViewById(R.id.txtActivityTitleCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
         try
         {
-            moltin.authenticate("umRG34nxZVGIuCSPfYf8biBSvtABgTR8GMUtflyE", new Handler.Callback() {
+            moltin.authenticate(getString(R.string.moltin_api_key), new Handler.Callback() {
                 @Override
                 public boolean handleMessage(Message msg) {
                     if (msg.what == Constants.RESULT_OK) {
@@ -282,7 +278,7 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "Cart is empty", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.alert_cart_is_empty), Toast.LENGTH_LONG).show();
                     }
                     break;
                 case R.id.btnMenu:
@@ -378,11 +374,6 @@ public class CollectionActivity extends SlidingFragmentActivity implements Colle
             e.printStackTrace();
         }
         super.onResume();
-    }
-
-    @Override
-    public void onFragmentInteractionForCartItem(CartItem item) {
-
     }
 
     @Override

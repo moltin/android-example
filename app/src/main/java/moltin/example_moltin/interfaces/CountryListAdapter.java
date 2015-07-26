@@ -41,16 +41,16 @@ public class CountryListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        MainListHolder mHolder;
+        MainListHolder holder;
 
         View v = convertView;
-            mHolder = new MainListHolder();
+        holder = new MainListHolder();
 
-            v = inflator.inflate(R.layout.country_item, null);
-            mHolder.country=  (TextView) v.findViewById(R.id.txtCountry);
-            mHolder.country.setText(list.get(position).getItemTitle());
+        v = inflator.inflate(R.layout.country_item, null);
+        holder.country=  (TextView) v.findViewById(R.id.txtCountry);
+        holder.country.setText(list.get(position).getItemTitle());
 
-            v.setTag(position);
+        v.setTag(position);
         return v;
     }
     class MainListHolder

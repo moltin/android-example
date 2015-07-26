@@ -23,8 +23,8 @@ public class CollectionFragment extends android.app.Fragment {
     public CustomRecyclerView customRecyclerView;
     private CollectionListAdapterHolder adapter;
     private LinearLayoutManager layoutManager;
-    private OnCollectionFragmentInteractionListener mCollectionFragmentInteractionListener;
-    private OnCollectionFragmentPictureDownloadListener mCollectionFragmentPictureDownloadListener;
+    private OnCollectionFragmentInteractionListener interactionListener;
+    private OnCollectionFragmentPictureDownloadListener pictureDownloadListener;
     private ArrayList<CollectionItem> items;
     private int width;
     private int offset;
@@ -52,14 +52,14 @@ public class CollectionFragment extends android.app.Fragment {
         setRetainInstance(true);
 
         try {
-            mCollectionFragmentInteractionListener = (OnCollectionFragmentInteractionListener) activity;
+            interactionListener = (OnCollectionFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
 
         try {
-            mCollectionFragmentPictureDownloadListener = (OnCollectionFragmentPictureDownloadListener) activity;
+            pictureDownloadListener = (OnCollectionFragmentPictureDownloadListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnPicturesDownloadListener");
@@ -114,24 +114,24 @@ public class CollectionFragment extends android.app.Fragment {
 
             @Override
             public void onItemClick(View v , int position) {
-                mCollectionFragmentInteractionListener.onFragmentInteractionForCollectionItem(items.get(position).getItemId());
+                interactionListener.onFragmentInteractionForCollectionItem(items.get(position).getItemId());
             }
         });
 
         adapter.SetOnPicturesDownloadListener(new CollectionListAdapterHolder.OnPicturesDownloadListener() {
             @Override
             public void onPictureDownloadListener() {
-                mCollectionFragmentPictureDownloadListener.onCollectionFragmentPictureDownloadListener();
+                pictureDownloadListener.onCollectionFragmentPictureDownloadListener();
             }
         });
     }
 
 
     public interface OnCollectionFragmentInteractionListener {
-        public void onFragmentInteractionForCollectionItem(String itemId);
+        void onFragmentInteractionForCollectionItem(String itemId);
     }
 
     public interface OnCollectionFragmentPictureDownloadListener {
-        public void onCollectionFragmentPictureDownloadListener();
+        void onCollectionFragmentPictureDownloadListener();
     }
 }

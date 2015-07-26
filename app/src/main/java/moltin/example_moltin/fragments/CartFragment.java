@@ -32,9 +32,8 @@ public class CartFragment extends ListFragment implements AbsListView.OnScrollLi
     private int lastPosition=0;
     private Moltin moltin;
 
-    private OnFragmentInteractionListener mListener;
-    private OnFragmentChangeListener mChangeListener;
-    private OnFragmentUpdatedListener mUpdatedListener;
+    private OnFragmentChangeListener changeListener;
+    private OnFragmentUpdatedListener updatedListener;
 
     private boolean loading=false;
 
@@ -56,12 +55,6 @@ public class CartFragment extends ListFragment implements AbsListView.OnScrollLi
             itemAdapter = new CartItemArrayAdapter(getActivity(), items);
             setListAdapter(itemAdapter);
             getListView().setOnScrollListener(this);
-            getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    mListener.onFragmentInteractionForCartItem(items.get(i));
-                }
-            });
 
             try
             {
@@ -104,19 +97,13 @@ public class CartFragment extends ListFragment implements AbsListView.OnScrollLi
             if (lv.getLastVisiblePosition() == lv.getAdapter().getCount() -1 &&
                     lv.getChildAt(lv.getChildCount() - 1).getBottom() <= lv.getHeight())
             {
-                final int position = lv.getLastVisiblePosition();
-                CartItem item = (CartItem)lv.getAdapter().getItem(lv.getChildCount() - 1);
-
                 loading=true;
-
             }
             else if (lv.getFirstVisiblePosition() == 0 &&
                     lv.getChildAt(0).getTop() >= 0)
             {
                 if(lv  != null && lv.getAdapter() != null && lv.getAdapter().getCount()<=1)
                     return;
-
-                CartItem item = (CartItem)lv.getAdapter().getItem(1);
 
                 loading=true;
             }
@@ -137,7 +124,7 @@ public class CartFragment extends ListFragment implements AbsListView.OnScrollLi
             moltin.cart.contents(new Handler.Callback() {
                 @Override
                 public boolean handleMessage(Message msg) {
-                    mUpdatedListener.onFragmentUpdatedForCartItem();
+                    updatedListener.onFragmentUpdatedForCartItem();
                     if (msg.what == Constants.RESULT_OK) {
 
                         items = new ArrayList<CartItem>();
@@ -185,7 +172,7 @@ public class CartFragment extends ListFragment implements AbsListView.OnScrollLi
                                     e.printStackTrace();
                                 }
 
-                                mChangeListener.onFragmentChangeForCartItem(cart);
+                                changeListener.onFragmentChangeForCartItem(cart);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -208,31 +195,22 @@ public class CartFragment extends ListFragment implements AbsListView.OnScrollLi
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
-        }
-        try {
-            mChangeListener = (OnFragmentChangeListener) activity;
+            changeListener = (OnFragmentChangeListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement OnFragmentChangeListener");
         }
         try {
-            mUpdatedListener = (OnFragmentUpdatedListener) activity;
+            updatedListener = (OnFragmentUpdatedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement OnFragmentUpdatedListener");
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        public void onFragmentInteractionForCartItem(CartItem item);
-    }
-
     public interface OnFragmentChangeListener {
-        public void onFragmentChangeForCartItem(TotalCartItem cart);
+        void onFragmentChangeForCartItem(TotalCartItem cart);
     }
 
     public interface OnFragmentUpdatedListener {
-        public void onFragmentUpdatedForCartItem();
+        void onFragmentUpdatedForCartItem();
     }
 }

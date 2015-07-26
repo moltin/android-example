@@ -82,13 +82,12 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
     public void onBindViewHolder(final ViewHolder holder , int position) {
         holder.title.setText(items.get(position).getItemName());
         holder.description.setText(items.get(position).getShortItemDescription());
-        //holder.button.setTag(items.get(position).getItemId());
         holder.button.setTag(R.id.txtDescription,items.get(position).getItemId());
         holder.button.setTag(R.id.txtCollectionName,items.get(position).getItemName());
 
-        ((Button) holder.button).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-        ((TextView)holder.description).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "heuristica/Heuristica-Italic.otf"));
-        ((TextView)holder.title).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+        ((Button) holder.button).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), activity.getString(R.string.font_bold)));
+        ((TextView)holder.description).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), activity.getString(R.string.font_italic)));
+        ((TextView)holder.title).setTypeface(Typeface.createFromAsset(activity.getResources().getAssets(), activity.getString(R.string.font_bold)));
 
         holder.image.setImageResource(android.R.color.transparent);
         if(items.get(position).getItemPictureUrl()!=null && items.get(position).getItemPictureUrl().length>0);
@@ -155,7 +154,7 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
     }
 
     public interface OnPicturesDownloadListener {
-        public void onPictureDownloadListener();
+        void onPictureDownloadListener();
     }
 
     public void SetOnPicturesDownloadListener(final OnPicturesDownloadListener mPictureDownloadListener) {
@@ -163,7 +162,7 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view , int position);
+        void onItemClick(View view , int position);
     }
 
     public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {

@@ -53,7 +53,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SHIPPING METHOD"
+                        android:text="@string/text_shipping_method"
                         android:id="@+id/txtActivityTitle"
                         android:textColor="@android:color/white"
                         android:visibility="visible" />
@@ -115,7 +115,7 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="TOTAL PRICE"
+                                android:text="@string/text_total_price"
                                 android:id="@+id/txtTotal"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_margin="10dp"
@@ -142,7 +142,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="NEXT"
+                android:text="@string/text_next"
                 android:id="@+id/btnPlaceOrder"
                 android:background="@drawable/btn_violet"
                 android:textColor="@android:color/white"

@@ -53,31 +53,31 @@ public class ReceiptActivity extends Activity {
 
             TextView txtCourier=(TextView)findViewById(R.id.txtCourier);
             txtCourier.setText("");
-            txtCourier.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            txtCourier.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
             TextView txtCost=(TextView)findViewById(R.id.txtCost);
             txtCost.setText("");
-            txtCost.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            txtCost.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
             TextView txtAddress=(TextView)findViewById(R.id.txtAddress);
             txtAddress.setText("");
-            txtAddress.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            txtAddress.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
             TextView txtCard=(TextView)findViewById(R.id.txtCard);
             txtCard.setText("");
-            txtCard.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            txtCard.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
             TextView txtSubtotal=(TextView)findViewById(R.id.txtSubtotal);
             txtSubtotal.setText("");
-            txtSubtotal.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            txtSubtotal.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
             TextView txtDelivery=(TextView)findViewById(R.id.txtDelivery);
             txtDelivery.setText("");
-            txtDelivery.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            txtDelivery.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
             TextView txtTotal=(TextView)findViewById(R.id.txtTotal);
             txtTotal.setText("");
-            txtTotal.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            txtTotal.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
             Double shipping=Double.parseDouble(paymentJson.getJSONObject("result").getJSONObject("order").getString("shipping_price"));
             Double total=Double.parseDouble(paymentJson.getJSONObject("result").getJSONObject("order").getString("total"));
@@ -200,11 +200,11 @@ public class ReceiptActivity extends Activity {
         FetchableImageView imgItem=(FetchableImageView) myView.findViewById(R.id.imgItem);
 
         txtTitle.setText(title);
-        txtTitle.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+        txtTitle.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
         txtPrice.setText(price);
-        txtPrice.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+        txtPrice.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
         txtQuantity.setText(quantity);
-        txtQuantity.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+        txtQuantity.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
 
         ShutterbugManager.getSharedImageManager(ReceiptActivity.this).download(imgUrl, ((ImageView)imgItem));
 
@@ -239,11 +239,11 @@ public class ReceiptActivity extends Activity {
             for(int i = 0; i <root.getChildCount(); i++) {
                 View v = root.getChildAt(i);
                 if(v instanceof Button) {
-                    ((Button)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((Button)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof TextView) {
-                    ((TextView)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((TextView)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof EditText) {
-                    ((EditText)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((EditText)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof ViewGroup) {
                     changeFonts((ViewGroup) v);
                 }

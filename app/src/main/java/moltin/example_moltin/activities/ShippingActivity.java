@@ -32,7 +32,7 @@ public class ShippingActivity extends Activity {
 
     private Moltin moltin;
 
-    String email="";//"2myemail@email.com";
+    String email="";
 
     String first_name="";
     String last_name="";
@@ -89,7 +89,7 @@ public class ShippingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtShippingFirstName)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtShippingFirstName)).setError("First name is required!");
+                        ((TextView)findViewById(R.id.txtShippingFirstName)).setError(getString(R.string.required_field_first_name));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -99,7 +99,7 @@ public class ShippingActivity extends Activity {
                     }
                     if( ((TextView)findViewById(R.id.txtShippingLastName)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtShippingLastName)).setError("Last name is required!");
+                        ((TextView)findViewById(R.id.txtShippingLastName)).setError(getString(R.string.required_field_last_name));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -110,7 +110,7 @@ public class ShippingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtShippingAddress1)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtShippingAddress1)).setError("Address is required!");
+                        ((TextView)findViewById(R.id.txtShippingAddress1)).setError(getString(R.string.required_field_address));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -127,7 +127,7 @@ public class ShippingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtShippingCity)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtShippingCity)).setError("City is required!");
+                        ((TextView)findViewById(R.id.txtShippingCity)).setError(getString(R.string.required_field_city));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -138,7 +138,7 @@ public class ShippingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtShippingZip)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtShippingZip)).setError("Zip code is required!");
+                        ((TextView)findViewById(R.id.txtShippingZip)).setError(getString(R.string.required_field_zip));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -149,7 +149,7 @@ public class ShippingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtShippingState)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtShippingState)).setError("State is required!");
+                        ((TextView)findViewById(R.id.txtShippingState)).setError(getString(R.string.required_field_state));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -160,7 +160,7 @@ public class ShippingActivity extends Activity {
 
                     if(country.equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtShippingCountry)).setError("Country code is required!");
+                        ((TextView)findViewById(R.id.txtShippingCountry)).setError(getString(R.string.required_field_country));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -251,7 +251,6 @@ public class ShippingActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view,
                                     int position, long arg3) {
-                // TODO Auto-generated method stub
                 if(dialog.isShowing())
                 {
                     dialog.dismiss();
@@ -271,11 +270,11 @@ public class ShippingActivity extends Activity {
             for(int i = 0; i <root.getChildCount(); i++) {
                 View v = root.getChildAt(i);
                 if(v instanceof Button) {
-                    ((Button)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((Button)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof TextView) {
-                    ((TextView)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((TextView)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof EditText) {
-                    ((EditText)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((EditText)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof ViewGroup) {
                     changeFonts((ViewGroup) v);
                 }

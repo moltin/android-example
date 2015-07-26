@@ -1,4 +1,83 @@
 <resources>
     <string name="app_name">MOLTIN e-store</string>
+
+    <string name="moltin_api_key">umRG34nxZVGIuCSPfYf8biBSvtABgTR8GMUtflyE</string>
+
     <string name="action_settings">Settings</string>
+
+    <string name="required_field_email">Email is required!</string>
+    <string name="required_field_first_name">First name is required!</string>
+    <string name="required_field_last_name">Last name is required!</string>
+    <string name="required_field_address">Address is required!</string>
+    <string name="required_field_city">City is required!</string>
+    <string name="required_field_zip">Zip code is required!</string>
+    <string name="required_field_state">State is required!</string>
+    <string name="required_field_country">Country code is required!</string>
+    <string name="required_field_credit_card">Credit card number is required!</string>
+    <string name="required_field_expiration_month">Valid credit card expiration month is required!</string>
+    <string name="required_field_expiration_year">Valid credit card expiration year is required!</string>
+    <string name="required_field_cvv">Credit card cvc/cvv is required!</string>
+
+    <string name="font_regular">montserrat/Montserrat-Regular.otf</string>
+    <string name="font_bold">montserrat/Montserrat-Bold.otf</string>
+    <string name="font_italic">heuristica/Heuristica-Italic.otf</string>
+
+    <string name="alert_cart_is_empty">Cart is empty</string>
+    <string name="alert_error_while_adding_to_cart">Error while adding to cart. Please try again.</string>
+    <string name="alert_generic_error">We are experiencing some problems, please try later!</string>
+    <string name="alert_no_products_available">No products available in this category.</string>
+
+    <string name="text_select">"Select "</string>
+    <string name="text_select_quantity">Select quantity</string>
+    <string name="text_product_added">Product added to cart.</string>
+    <string name="text_payment">Payment</string>
+    <string name="text_error">Error</string>
+    <string name="text_billing_address">BILLING ADDRESS</string>
+    <string name="text_valid_email">Valid email</string>
+    <string name="text_first_name">First name</string>
+    <string name="text_last_name">Last name</string>
+    <string name="text_billing_address_line_1">Billing address line 1</string>
+    <string name="text_billing_address_line_2">Billing address line 2 (optional)</string>
+    <string name="text_city">City</string>
+    <string name="text_state">State</string>
+    <string name="text_zip">ZIP</string>
+    <string name="text_country">Country</string>
+    <string name="text_billing_address_same_as_shipping_address">Billing address same as shipping address</string>
+    <string name="text_next">NEXT</string>
+    <string name="text_collections">COLLECTIONS</string>
+    <string name="text_item">ITEM</string>
+    <string name="text_collection">Collection</string>
+    <string name="text_title">Ttitle</string>
+    <string name="text_price">Price</string>
+    <string name="text_add_to_cart">Add to cart</string>
+    <string name="text_payment_upper">PAYMENT</string>
+    <string name="text_card_number">Card number</string>
+    <string name="text_expiration_month">Expiration month</string>
+    <string name="text_expiration_year">Expiration year</string>
+    <string name="text_cvv">CVC/CVV</string>
+    <string name="text_checkout">CHECKOUT</string>
+    <string name="text_items">ITEMS</string>
+    <string name="text_receipt">RECEIPT</string>
+    <string name="text_done">DONE</string>
+    <string name="text_shipping_address">SHIPPING ADDRESS</string>
+    <string name="text_shipping_address_line_1">Shipping address line 1</string>
+    <string name="text_shipping_address_line_2">Shipping address line 2 (optional)</string>
+    <string name="text_shipping_method">SHIPPING METHOD</string>
+    <string name="text_total_price">TOTAL PRICE</string>
+    <string name="text_store_name">MOLTIN</string>
+    <string name="text_enter_store">ENTER STORE</string>
+    <string name="text_shopping_cart">SHOPPING CART</string>
+    <string name="text_your_cart_is_empty">Your cart is empty</string>
+    <string name="text_view_collection">VIEW COLLECTION</string>
+    <string name="text_set">Set</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_shipping">SHIPPING</string>
+    <string name="text_courier">Courier</string>
+    <string name="text_cost">Cost</string>
+    <string name="text_address">ADDRESS</string>
+    <string name="text_card">Card</string>
+    <string name="text_subtotal">Subtotal</string>
+    <string name="text_delivery">Delivery</string>
+    <string name="text_total">Total</string>
+    <string name="text_qty">Qty:</string>
 </resources>

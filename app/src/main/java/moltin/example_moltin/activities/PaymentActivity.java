@@ -111,7 +111,7 @@ public class PaymentActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtPaymentCardNumber)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtPaymentCardNumber)).setError("Credit card number is required!");
+                        ((TextView)findViewById(R.id.txtPaymentCardNumber)).setError(getString(R.string.required_field_credit_card));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -122,7 +122,7 @@ public class PaymentActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtPaymentExpirationMonth)).getText().toString().trim().equals("") || Integer.parseInt(((TextView) findViewById(R.id.txtPaymentExpirationMonth)).getText().toString().trim())>12)
                     {
-                        ((TextView)findViewById(R.id.txtPaymentExpirationMonth)).setError("Valid credit card expiration month is required!");
+                        ((TextView)findViewById(R.id.txtPaymentExpirationMonth)).setError(getString(R.string.required_field_expiration_month));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -133,7 +133,7 @@ public class PaymentActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtPaymentExpirationYear)).getText().toString().trim().equals("") || Integer.parseInt(((TextView) findViewById(R.id.txtPaymentExpirationYear)).getText().toString().trim())>3000)
                     {
-                        ((TextView)findViewById(R.id.txtPaymentExpirationYear)).setError("Valid credit card expiration year is required!");
+                        ((TextView)findViewById(R.id.txtPaymentExpirationYear)).setError(getString(R.string.required_field_expiration_year));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -144,7 +144,7 @@ public class PaymentActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtPaymentCVC)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtPaymentCVC)).setError("Credit card cvc/cvv is required!");
+                        ((TextView)findViewById(R.id.txtPaymentCVC)).setError(getString(R.string.required_field_cvv));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -237,7 +237,7 @@ public class PaymentActivity extends Activity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            showAlert(false,"We are experiencing some problems, please try later!");
+                            showAlert(false,getString(R.string.alert_generic_error));
                         }
 
                         return true;
@@ -265,7 +265,7 @@ public class PaymentActivity extends Activity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            showAlert(false,"We are experiencing some problems, please try later!");
+                            showAlert(false,getString(R.string.alert_generic_error));
                         }
                         return false;
                     }
@@ -309,7 +309,7 @@ public class PaymentActivity extends Activity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            showAlert(false,"We are experiencing some problems, please try later!");
+                            showAlert(false,getString(R.string.alert_generic_error));
                         }
 
                         return true;
@@ -322,7 +322,7 @@ public class PaymentActivity extends Activity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-                            showAlert(false,"We are experiencing some problems, please try later!");
+                            showAlert(false,getString(R.string.alert_generic_error));
                         }
                         return false;
                     }
@@ -359,7 +359,7 @@ public class PaymentActivity extends Activity {
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            showAlert(false,"We are experiencing some problems, please try later!");
+                            showAlert(false,getString(R.string.alert_generic_error));
                         }
 
                         return true;
@@ -373,7 +373,7 @@ public class PaymentActivity extends Activity {
                             showAlert(false,errors);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            showAlert(false,"We are experiencing some problems, please try later!");
+                            showAlert(false,getString(R.string.alert_generic_error));
                         }
                         return false;
                     }
@@ -432,7 +432,7 @@ public class PaymentActivity extends Activity {
     private void showAlert(final boolean done,String message)
     {
         new AlertDialog.Builder(this)
-                .setTitle((done ?"Payment":"Error"))
+                .setTitle((done ?getString(R.string.text_payment):getString(R.string.text_error)))
                 .setMessage(message)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -443,9 +443,6 @@ public class PaymentActivity extends Activity {
                             intent.putExtra("JSON_CART", json);
                             intent.putExtra("JSON_PAYMENT", jsonPayment.toString());
                             startActivity(intent);
-                            /*Intent intent = new Intent(getApplicationContext(), CollectionActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);*/
                         }
                     }
                 })
@@ -459,11 +456,11 @@ public class PaymentActivity extends Activity {
             for(int i = 0; i <root.getChildCount(); i++) {
                 View v = root.getChildAt(i);
                 if(v instanceof Button) {
-                    ((Button)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((Button)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof TextView) {
-                    ((TextView)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((TextView)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof EditText) {
-                    ((EditText)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((EditText)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof ViewGroup) {
                     changeFonts((ViewGroup) v);
                 }

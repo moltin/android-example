@@ -29,7 +29,7 @@ import moltin.example_moltin.fragments.CartFragment;
 import moltin.example_moltin.fragments.ProductFragment;
 
 
-public class ProductActivity extends SlidingFragmentActivity implements CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, CartFragment.OnFragmentInteractionListener, ProductFragment.OnProductFragmentInteractionListener {
+public class ProductActivity extends SlidingFragmentActivity implements CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, ProductFragment.OnProductFragmentInteractionListener {
     private Moltin moltin;
     private ArrayList<ProductItem> items;
     private ArrayList<CartItem> itemsForCart;
@@ -97,8 +97,8 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
                 .replace(R.id.cart_content_frame, menuFragment)
                 .commit();
 
-        ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-        ((TextView)findViewById(R.id.txtActivityTitleCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+        ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
+        ((TextView)findViewById(R.id.txtActivityTitleCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
         ((TextView)findViewById(R.id.txtActivityTitle)).setText(collection.toUpperCase());
         try {
             getProducts();
@@ -190,7 +190,7 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "Cart is empty", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.alert_cart_is_empty), Toast.LENGTH_LONG).show();
                     }
                     break;
                 case R.id.btnMenu:
@@ -232,7 +232,7 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(), "No products available in this category.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.alert_no_products_available), Toast.LENGTH_LONG).show();
                         }
 
                         if(items.size()==json.getJSONObject("pagination").getInt("total"))
@@ -314,11 +314,6 @@ public class ProductActivity extends SlidingFragmentActivity implements CartFrag
     @Override
     public void onFragmentChangeForCartItem(TotalCartItem cart) {
         ((TextView)findViewById(R.id.txtTotalPrice)).setText(cart.getItemTotalPrice());
-    }
-
-    @Override
-    public void onFragmentInteractionForCartItem(CartItem item) {
-
     }
 
     @Override

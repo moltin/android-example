@@ -41,7 +41,7 @@ import moltin.example_moltin.data.VariationItem;
 import moltin.example_moltin.fragments.CartFragment;
 import moltin.example_moltin.fragments.DetailFragment;
 
-public class DetailActivity extends SlidingFragmentActivity implements CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, CartFragment.OnFragmentInteractionListener, NumberPicker.OnValueChangeListener {
+public class DetailActivity extends SlidingFragmentActivity implements CartFragment.OnFragmentUpdatedListener, CartFragment.OnFragmentChangeListener, NumberPicker.OnValueChangeListener {
 
     private SlidingMenu menu;
     private android.app.Fragment mContent;
@@ -77,7 +77,6 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_detail);
 
         moltin = new Moltin(this);
 
@@ -207,8 +206,8 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
                 {
                     modifierIndex[i]=0;
                     TextView textModifier=new TextView(this);
-                    textModifier.setText("Select " + modItems.get(i).getItemTitle());
-                    textModifier.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+                    textModifier.setText(getString(R.string.text_select) + modItems.get(i).getItemTitle());
+                    textModifier.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_bold)));
                     layoutModifiers.addView(textModifier);
 
                     ArrayList<String> spinnerArray = new ArrayList<String>();
@@ -319,13 +318,13 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
         }
 
         try {
-            ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-            ((TextView)findViewById(R.id.txtDetailTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-            ((TextView)findViewById(R.id.txtDetailPrice)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
-            ((TextView)findViewById(R.id.txtDetailCollection)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
-            ((TextView)findViewById(R.id.txtDetailBrand)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "heuristica/Heuristica-Italic.otf"));
-            ((TextView)findViewById(R.id.txtDetailDescription)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "heuristica/Heuristica-Italic.otf"));
-            ((Button)findViewById(R.id.btnPutIntoCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Bold.otf"));
+            ((TextView)findViewById(R.id.txtActivityTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_bold)));
+            ((TextView)findViewById(R.id.txtDetailTitle)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_bold)));
+            ((TextView)findViewById(R.id.txtDetailPrice)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_bold)));
+            ((TextView)findViewById(R.id.txtDetailCollection)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
+            ((TextView)findViewById(R.id.txtDetailBrand)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_italic)));
+            ((TextView)findViewById(R.id.txtDetailDescription)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_italic)));
+            ((Button)findViewById(R.id.btnPutIntoCart)).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_bold)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -414,7 +413,7 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "Cart is empty", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.alert_cart_is_empty), Toast.LENGTH_LONG).show();
                     }
                     break;
                 case R.id.btnMenu:
@@ -467,7 +466,7 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
                         JSONObject jsonObject = (JSONObject) msg.obj;
                         if (msg.what == Constants.RESULT_OK) {
 
-                            Toast.makeText(getApplicationContext(), "Product added to cart.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.text_product_added), Toast.LENGTH_LONG).show();
                             try {
                                 if (jsonObject.has("status") && jsonObject.getBoolean("status"))
                                     ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
@@ -482,7 +481,7 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
                             toggle();
                             return true;
                         } else {
-                            Toast.makeText(getApplicationContext(), "Error while adding to cart. Please try again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.alert_error_while_adding_to_cart), Toast.LENGTH_LONG).show();
                             ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
                             return false;
                         }
@@ -495,16 +494,16 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
         else
         {
             final Dialog d = new Dialog(this);
-            d.setTitle("Select quantity");
+            d.setTitle(getString(R.string.text_select_quantity));
             d.setContentView(R.layout.dialog);
             Button b1 = (Button) d.findViewById(R.id.button1);
             b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
             b1.setTextColor(getResources().getColor(android.R.color.white));
-            b1.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            b1.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
             Button b2 = (Button) d.findViewById(R.id.button2);
             b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_violet));
             b2.setTextColor(getResources().getColor(android.R.color.white));
-            b2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+            b2.setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
             final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
             np.setMaxValue(100);
             np.setMinValue(1);
@@ -523,7 +522,7 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
                             modsArray=new String[modItems.size()][2];
                             for(int i=0;i<modItems.size();i++)
                             {
-                                modsArray[i][0]=/*"modifier["+*/modItems.get(i).getItemId()/*+"]"*/;
+                                modsArray[i][0]=modItems.get(i).getItemId();
                                 modsArray[i][1]=modItems.get(i).getItemVariation().get(modifierIndex[i]).getItemId();
                             }
                         }
@@ -536,7 +535,7 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
                                 JSONObject jsonObject = (JSONObject) msg.obj;
                                 if (msg.what == Constants.RESULT_OK) {
 
-                                    Toast.makeText(getApplicationContext(), "Product added to cart.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), getString(R.string.text_product_added), Toast.LENGTH_LONG).show();
                                     try {
                                         if (jsonObject.has("status") && jsonObject.getBoolean("status"))
                                             ((LinearLayout) findViewById(R.id.layPutIntoCart)).setVisibility(View.VISIBLE);
@@ -551,7 +550,7 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
                                     toggle();
                                     return true;
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Error while adding to cart. Please try again.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), getString(R.string.alert_error_while_adding_to_cart), Toast.LENGTH_LONG).show();
                                     ((Button) findViewById(R.id.btnPutIntoCart)).setEnabled(true);
                                     return false;
                                 }
@@ -577,11 +576,6 @@ public class DetailActivity extends SlidingFragmentActivity implements CartFragm
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
         quantity = newVal;
-    }
-
-    @Override
-    public void onFragmentInteractionForCartItem(CartItem item) {
-
     }
 
     @Override

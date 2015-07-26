@@ -73,7 +73,7 @@ public class BillingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtBillingEmail)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtBillingEmail)).setError("Email is required!");
+                        ((TextView)findViewById(R.id.txtBillingEmail)).setError(getString(R.string.required_field_email));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -84,7 +84,7 @@ public class BillingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtBillingFirstName)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtBillingFirstName)).setError("First name is required!");
+                        ((TextView)findViewById(R.id.txtBillingFirstName)).setError(getString(R.string.required_field_first_name));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -94,7 +94,7 @@ public class BillingActivity extends Activity {
                     }
                     if( ((TextView)findViewById(R.id.txtBillingLastName)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtBillingLastName)).setError("Last name is required!");
+                        ((TextView)findViewById(R.id.txtBillingLastName)).setError(getString(R.string.required_field_last_name));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -105,7 +105,7 @@ public class BillingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtBillingAddress1)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtBillingAddress1)).setError("Address is required!");
+                        ((TextView)findViewById(R.id.txtBillingAddress1)).setError(getString(R.string.required_field_address));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -122,7 +122,7 @@ public class BillingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtBillingCity)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtBillingCity)).setError("City is required!");
+                        ((TextView)findViewById(R.id.txtBillingCity)).setError(getString(R.string.required_field_city));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -133,7 +133,7 @@ public class BillingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtBillingZip)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtBillingZip)).setError("Zip code is required!");
+                        ((TextView)findViewById(R.id.txtBillingZip)).setError(getString(R.string.required_field_zip));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -144,7 +144,7 @@ public class BillingActivity extends Activity {
 
                     if( ((TextView)findViewById(R.id.txtBillingState)).getText().toString().trim().equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtBillingState)).setError("State is required!");
+                        ((TextView)findViewById(R.id.txtBillingState)).setError(getString(R.string.required_field_state));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -155,7 +155,7 @@ public class BillingActivity extends Activity {
 
                     if(country.equals(""))
                     {
-                        ((TextView)findViewById(R.id.txtBillingCountry)).setError("Country code is required!");
+                        ((TextView)findViewById(R.id.txtBillingCountry)).setError(getString(R.string.required_field_country));
                         placeOrder=false;
                         if(oneErrorPerTry)return;
                     }
@@ -283,11 +283,11 @@ public class BillingActivity extends Activity {
             for(int i = 0; i <root.getChildCount(); i++) {
                 View v = root.getChildAt(i);
                 if(v instanceof Button) {
-                    ((Button)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((Button)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof TextView) {
-                    ((TextView)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((TextView)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof EditText) {
-                    ((EditText)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), "montserrat/Montserrat-Regular.otf"));
+                    ((EditText)v).setTypeface(Typeface.createFromAsset(getResources().getAssets(), getString(R.string.font_regular)));
                 } else if(v instanceof ViewGroup) {
                     changeFonts((ViewGroup) v);
                 }
