@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">MOLTIN e-store</string>
+    <string name="app_name">Your Moltin Storename</string>
 
-    <string name="moltin_api_key">umRG34nxZVGIuCSPfYf8biBSvtABgTR8GMUtflyE</string>
+    <string name="moltin_api_key">YOUR_API_KEY</string>
 
     <string name="action_settings">Settings</string>
 
