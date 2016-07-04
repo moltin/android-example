@@ -23,7 +23,7 @@ The application will try and authorize once the CollectionsActivity Activity is 
 
 `106: moltin.authenticate(getString(R.string.moltin_api_key), new Handler.Callback()`  
 
-The above line shows the moltin API key is being requested from the String resourse file so we need to place our key
+The above line shows the moltin API key is being requested from the string resource file so we need to place our key
 in strings.xml which can be found in the resources folder:
 
 `4: <string name="moltin_api_key">YOUR_API_KEY_HERE</string>`
