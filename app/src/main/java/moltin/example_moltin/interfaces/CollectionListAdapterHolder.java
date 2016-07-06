@@ -51,24 +51,23 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
 
         for(int i=offset;i<items.size() && i<offset+5;i++)
         try {
-            String imageUrl=items.get(i).getItemPictureUrl()[0];
-            if(imageUrl!=null && imageUrl.length()>3)
-            {
-                shutterbugManager.download(imageUrl, new ShutterbugManager.ShutterbugManagerListener() {
-                    @Override
-                    public void onImageSuccess(ShutterbugManager imageManager, Bitmap bitmap, String url) {
-                        checkIfPicturesAreDownloaded();
-                    }
+            if(items.get(i).getItemPictureUrl() != null) {
+                String imageUrl = items.get(i).getItemPictureUrl()[0];
+                if (imageUrl != null && imageUrl.length() > 3) {
+                    shutterbugManager.download(imageUrl, new ShutterbugManager.ShutterbugManagerListener() {
+                        @Override
+                        public void onImageSuccess(ShutterbugManager imageManager, Bitmap bitmap, String url) {
+                            checkIfPicturesAreDownloaded();
+                        }
 
-                    @Override
-                    public void onImageFailure(ShutterbugManager imageManager, String url) {
-                        checkIfPicturesAreDownloaded();
-                    }
-                });
-            }
-            else
-            {
-                checkIfPicturesAreDownloaded();
+                        @Override
+                        public void onImageFailure(ShutterbugManager imageManager, String url) {
+                            checkIfPicturesAreDownloaded();
+                        }
+                    });
+                } else {
+                    checkIfPicturesAreDownloaded();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,14 +92,13 @@ public class CollectionListAdapterHolder extends CustomRecyclerView.Adapter<Coll
         if(items.get(position).getItemPictureUrl()!=null && items.get(position).getItemPictureUrl().length>0);
         {
             try {
-                String imageUrl=items.get(position).getItemPictureUrl()[0];
-                if(imageUrl!=null && imageUrl.length()>3)
-                {
-                    shutterbugManager.download(imageUrl, ((ImageView)holder.image));
-                }
-                else
-                {
-                    holder.image.setImageResource(android.R.color.transparent);
+                if(items.get(position).getItemPictureUrl() != null) {
+                    String imageUrl = items.get(position).getItemPictureUrl()[0];
+                    if (imageUrl != null && imageUrl.length() > 3) {
+                        shutterbugManager.download(imageUrl, ((ImageView) holder.image));
+                    } else {
+                        holder.image.setImageResource(android.R.color.transparent);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
