@@ -1,7 +1,7 @@
 Changelog
 =========
 
-%%version%% (unreleased)
+1.0.0
 ------------------------
 
 - Updated gradle build files to the latest version. [Drew Watson]
